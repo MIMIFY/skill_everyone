@@ -1,0 +1,10 @@
+# 生成的角色文件（包含用户私有材料，不上传）
+characters/
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# macOS
+.DS_Store
