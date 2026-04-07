@@ -129,10 +129,10 @@ npx skills add MIMIFY/skill_everyone
 
 ```bash
 # Claude Code 全局安装
-git clone https://github.com/MIMIFY/skill_everyone ~/.claude/skills/skill_everyone
+git clone https://github.com/MIMIFY/skill_everyone ~/.claude/skills/skill-everyone
 
 # 仅当前项目
-git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill_everyone
+git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 ```
 
 > 支持 Claude Code、Codex、Cursor 及所有兼容 [AgentSkills](https://agentskills.io) 标准的框架。
@@ -146,11 +146,11 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill_everyone
 ```
 /summon <角色名>
 
-/summon Geralt of Rivia
 /summon 林黛玉
-/summon Cloud Strife from FF7 Remake
-/summon Hermione Granger novel version
+/summon 塞尔达 旷野之息
 /summon 孙悟空 西游记原著版
+/summon Hermione Granger novel version
+/summon 我要定义原创人物
 ```
 
 生成时会问你 2-3 个问题（版本、模式、材料来源），然后自动完成。
@@ -161,9 +161,12 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill_everyone
 /<slug>                      沉浸对话，角色不出戏
 /<slug>-perspective          思维视角，用角色框架分析你的问题
 
-/geralt-witcher3
 /lin-daiyu-novel
-/cloud-ff7remake-perspective
+/lin-daiyu-novel-perspective
+/zelda-botw
+/zelda-botw-perspective
+/sainisi-alien-taming
+/test-original-vex
 ```
 
 ### 管理角色库
@@ -173,6 +176,35 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill_everyone
 /summon add <slug>           给角色追加材料
 /summon update <slug>        更新设定或补充生成另一种模式
 ```
+
+---
+
+## 已有角色 · Examples
+
+仓库自带以下已生成的角色 Skill，可以直接安装使用，不需要重新生成：
+
+| 角色 | 作品 | 沉浸模式 | 视角模式 |
+|------|------|---------|---------|
+| 林黛玉 | 红楼梦原著 | `/lin-daiyu-novel` | `/lin-daiyu-novel-perspective` |
+| 赛涅斯 | 外星异种驯化手册 | `/sainisi-alien-taming` | `/sainisi-alien-taming-perspective` |
+| 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
+| 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
+
+### 安装方式
+
+**Claude Code（推荐）**
+
+把 `examples/` 下的角色目录直接复制到 `~/.claude/skills/`：
+
+```bash
+# 安装单个角色
+cp -r examples/zelda-botw ~/.claude/skills/
+
+# 安装全部
+cp -r examples/* ~/.claude/skills/
+```
+
+复制完成后，在 Claude Code 对话框里直接输入 `/zelda-botw` 即可开始对话。
 
 ---
 
@@ -263,6 +295,12 @@ Summon 不能带回任何人，但它可以让你把那份理解留住，让它�
 生成的角色 skill 可以直接提取出来作为独立 skill 发布，投稿到 [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills)。
 
 ---
+
+---
+
+## 作者
+
+Created by [@MIMIFY](https://github.com/MIMIFY), visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [Wenxuan Zhang](https://isakzhang.github.io/).
 
 ---
 
