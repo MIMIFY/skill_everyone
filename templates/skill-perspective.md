@@ -58,3 +58,4 @@ allowed-tools: [Read]
 ---
 
 *此 Skill 基于 {source}（{version}）生成，生成时间 {created_date}。*
+*角色材料详见 skill-everyone 安装目录下 `characters/{slug}/persona.md`。*

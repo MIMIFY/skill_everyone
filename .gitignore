@@ -1,5 +1,7 @@
-# 生成的角色文件（包含用户私有材料，不上传）
-characters/
+# 原始抓取备份（可重新生成，不上传）
+characters/*/references/auto/source/
+characters/*/references/manual/source/
+characters/*/references/manual/original/source/
 
 # Python
 __pycache__/

@@ -154,4 +154,4 @@ allowed-tools: [Read]
 ---
 
 *此 Skill 基于《塞尔达传说：旷野之息》/《王国之泪》（任天堂）的呈现生成，生成时间 2026-04-07。*
-*角色材料详见 `persona.md` 和 `world.md`。*
+*角色材料详见 skill-everyone 安装目录下 `characters/zelda-botw/persona.md` 和 `world.md`。*

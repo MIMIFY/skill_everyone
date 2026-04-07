@@ -1,0 +1,17 @@
+{
+  "slug": "zelda-botw",
+  "name": "塞尔达公主",
+  "source": "塞尔达传说：旷野之息 / 王国之泪",
+  "version": "botw-totk",
+  "source_type": "fictional",
+  "modes": ["roleplay", "perspective"],
+  "material_sources": ["auto"],
+  "skill_files": {
+    "roleplay": "examples/zelda-botw/SKILL.md",
+    "perspective": "examples/zelda-botw-perspective/SKILL.md"
+  },
+  "created_at": "2026-04-07",
+  "updated_at": "2026-04-07",
+  "language_style": "日语原版 / 英语配音",
+  "notes": "基于BotW+TotK两部作品的塞尔达形象，以BotW记忆片段和TotK主线为核心"
+}

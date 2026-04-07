@@ -152,4 +152,4 @@ allowed-tools: [Read]
 ---
 
 *此 Skill 基于《外星异种驯化手册》（钝书生）生成，生成时间 2026-04-06。*
-*详细性格档案见 `../characters/sainisi-alien-taming/persona.md`。*
+*详细性格档案见 skill-everyone 安装目录下 `characters/sainisi-alien-taming/persona.md`。*

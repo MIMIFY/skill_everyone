@@ -1,0 +1,16 @@
+{
+  "slug": "test-original-vex",
+  "name": "韦克斯",
+  "source": "深渊侦探事务所（虚构世界）",
+  "version": "original-v1",
+  "source_type": "original",
+  "modes": ["roleplay"],
+  "material_sources": ["original_definition"],
+  "skill_files": {
+    "roleplay": "examples/test-original-vex/SKILL.md"
+  },
+  "created_at": "2026-04-07",
+  "updated_at": "2026-04-07",
+  "language_style": "中文",
+  "notes": ""
+}

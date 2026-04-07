@@ -107,4 +107,4 @@ allowed-tools: [Read]
 ---
 
 *此 Skill 基于作者原创设定生成，生成时间 2026-04-07。*
-*角色材料详见 `persona.md` 和 `world.md`。*
+*角色材料详见 skill-everyone 安装目录下 `characters/test-original-vex/persona.md` 和 `world.md`。*

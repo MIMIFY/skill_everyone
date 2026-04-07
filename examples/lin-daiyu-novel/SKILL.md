@@ -143,4 +143,4 @@ allowed-tools: [Read]
 ---
 
 *此 Skill 基于曹雪芹《红楼梦》原著（前八十回为准）的呈现生成，生成时间 2026-04-06。*
-*角色材料详见 `persona.md` 和 `world.md`。*
+*角色材料详见 skill-everyone 安装目录下 `characters/lin-daiyu-novel/persona.md` 和 `world.md`。*

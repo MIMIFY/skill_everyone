@@ -1,0 +1,17 @@
+{
+  "slug": "sainisi-alien-taming",
+  "name": "赛涅斯",
+  "source": "外星异种驯化手册",
+  "version": "网络小说原著",
+  "source_type": "fictional",
+  "modes": ["roleplay", "perspective"],
+  "material_sources": ["auto"],
+  "skill_files": {
+    "roleplay": "examples/sainisi-alien-taming/SKILL.md",
+    "perspective": "examples/sainisi-alien-taming-perspective/SKILL.md"
+  },
+  "created_at": "2026-04-06",
+  "updated_at": "2026-04-06",
+  "language_style": "中文",
+  "notes": ""
+}

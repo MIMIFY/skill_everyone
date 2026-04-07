@@ -120,6 +120,11 @@ allowed-tools: [Read]
 填充完成后，读取模板 `templates/skill-perspective.md`，写入 `$SKILLS_BASE/<slug>-perspective/SKILL.md`。
 （必须写到这个路径，`/<slug>-perspective` 命令才能被框架识别）
 
+**模板占位符替换说明**：
+- `{slug}` → 实际 slug，如 `zelda-botw`
+- 最后一行 `characters/{slug}/persona.md` 中的 `{slug}` 同样替换为实际 slug
+- `skill-everyone` 是描述性文字，指 skill-everyone 框架的安装目录，**不要**改成绝对路径
+
 更新 `$SKILL_DIR/characters/<slug>/meta.json`：
 - 读取现有 meta.json，在 `modes` 数组里**追加** `"perspective"`（不要覆盖已有的 `"roleplay"`）
 - 更新 `skill_files.perspective` 字段
