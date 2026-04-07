@@ -1,5 +1,5 @@
 ---
-name: {slug}-perspective
+name: "{slug}-perspective"
 description: |
   {character_name}（{source}）思维视角 Skill。
   用 {character_name} 的价值观和判断方式，分析你的真实问题。

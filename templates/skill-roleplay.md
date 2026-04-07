@@ -1,5 +1,5 @@
 ---
-name: {slug}
+name: "{slug}"
 description: |
   {character_name}（{source} {version}）沉浸扮演 Skill。
   激活后直接以角色身份对话，角色不出戏。
