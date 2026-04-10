@@ -46,7 +46,7 @@
 
 <div align="center">
 
-<video src="https://github.com/MIMIFY/skill_everyone/releases/download/v1.0/skill-everyone-demo.mp4" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
+<video src="https://github.com/user-attachments/assets/57ca9c91-c6b2-4903-af71-dea826dbdf8e" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
 
 </div>
 
