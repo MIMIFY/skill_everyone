@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skill-everyone · /summon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080912;
+      --surface:   #0f1120;
+      --border:    rgba(255,255,255,0.08);
+      --purple:    #8b5cf6;
+      --purple-lo: rgba(139,92,246,0.15);
+      --teal:      #06b6d4;
+      --text:      #f1f5f9;
+      --sub:       #94a3b8;
+      --muted:     #475569;
+      --green:     #10b981;
+      --mono:      'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --sans:      'Inter', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      background: rgba(15,17,32,0.8);
+    }
+
+    #sidebar-header {
+      padding: 20px 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    #sidebar-header .logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--purple);
+      letter-spacing: 1px;
+    }
+    #sidebar-header .tagline {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    #char-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 8px;
+    }
+    .char-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .char-item:hover { background: rgba(255,255,255,0.04); }
+    .char-item.active { background: var(--purple-lo); border: 1px solid rgba(139,92,246,0.25); }
+    .char-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 6px var(--purple);
+      flex-shrink: 0;
+    }
+    .char-name { font-size: 14px; color: var(--text); }
+    .char-slug { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+    #new-chat-btn {
+      margin: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: none;
+      color: var(--sub);
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    #new-chat-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+    /* ── History panel ── */
+    #history-panel {
+      padding: 8px 8px 0;
+      border-top: 1px solid var(--border);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .hist-label {
+      font-size: 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+      letter-spacing: 1px;
+      padding: 6px 4px 4px;
+      text-transform: uppercase;
+    }
+    .hist-session {
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--sub);
+      transition: background 0.12s;
+    }
+    .hist-session:hover { background: rgba(255,255,255,0.04); }
+
+    /* ── Main area ── */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Top bar ── */
+    #topbar {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(8,9,18,0.8);
+      backdrop-filter: blur(10px);
+      flex-shrink: 0;
+    }
+    #char-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #1a1a2e, #2d1b69);
+      border: 1px solid rgba(139,92,246,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    #char-title { font-size: 15px; font-weight: 500; }
+    #char-subtitle { font-size: 12px; color: var(--muted); font-family: var(--mono); margin-top: 2px; }
+    .online-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px rgba(16,185,129,0.6);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    /* ── Empty state ── */
+    #empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0.5;
+    }
+    #empty-state .icon { font-size: 48px; }
+    #empty-state p { font-size: 14px; color: var(--sub); }
+
+    /* ── Messages ── */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .msg-row {
+      display: flex;
+      flex-direction: column;
+      max-width: 65%;
+      animation: fadeUp 0.2s ease-out;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-row.user  { align-self: flex-end; align-items: flex-end; }
+    .msg-row.assistant { align-self: flex-start; align-items: flex-start; }
+
+    .msg-label {
+      font-size: 11px;
+      font-family: var(--mono);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    .user .msg-label { color: #a78bfa; }
+    .assistant .msg-label { color: var(--sub); }
+
+    .msg-bubble {
+      padding: 14px 18px;
+      border-radius: 4px 12px 12px 12px;
+      font-size: 15px;
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+    .user .msg-bubble {
+      border-radius: 12px 4px 12px 12px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.25);
+      color: var(--text);
+    }
+    .assistant .msg-bubble {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--sub);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .thinking {
+      display: flex; gap: 5px; padding: 14px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px 12px 12px 12px;
+    }
+    .thinking span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--muted);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .thinking span:nth-child(2) { animation-delay: 0.2s; }
+    .thinking span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.2); }
+    }
+
+    /* ── Input bar ── */
+    #input-bar {
+      padding: 16px 40px 20px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+      background: rgba(8,9,18,0.9);
+    }
+    #input-wrap {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: border-color 0.15s;
+    }
+    #input-wrap:focus-within { border-color: rgba(139,92,246,0.4); }
+    #msg-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.6;
+      resize: none;
+      min-height: 24px;
+      max-height: 160px;
+    }
+    #msg-input::placeholder { color: var(--muted); }
+    #send-btn {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--purple-lo);
+      border: 1px solid rgba(139,92,246,0.35);
+      border-radius: 8px;
+      color: #a78bfa;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      align-self: flex-end;
+    }
+    #send-btn:hover:not(:disabled) { background: rgba(139,92,246,0.25); }
+    #send-btn:disabled { opacity: 0.35; cursor: default; }
+
+    #hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+      font-family: var(--mono);
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* placeholder when no char selected */
+    #no-char {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--muted);
+    }
+    #no-char .big { font-size: 40px; }
+    #no-char p { font-size: 14px; font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <div class="logo">skill-everyone</div>
+    <div class="tagline">· /summon · 本地 Web 版</div>
+  </div>
+
+  <div id="char-list">
+    <div class="hist-label" style="padding: 8px 4px 4px">角色</div>
+    <!-- filled by JS -->
+  </div>
+
+  <button id="new-chat-btn" onclick="newChat()">＋ 新对话</button>
+
+  <div id="history-panel">
+    <div class="hist-label">历史记录</div>
+    <div id="hist-list"></div>
+  </div>
+</div>
+
+<!-- ── Main ── -->
+<div id="main">
+  <div id="topbar">
+    <div id="char-avatar">🔴</div>
+    <div>
+      <div id="char-title">选择一个角色开始</div>
+      <div id="char-subtitle">skill-everyone · web</div>
+    </div>
+    <div class="online-dot" id="online-dot" style="display:none"></div>
+  </div>
+
+  <div id="no-char">
+    <div class="big">✦</div>
+    <p>从左侧选择一个角色</p>
+  </div>
+
+  <div id="messages" style="display:none"></div>
+
+  <div id="input-bar" style="display:none">
+    <div id="input-wrap">
+      <textarea id="msg-input" rows="1" placeholder="说点什么…" onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
+      <button id="send-btn" onclick="sendMessage()" title="发送 (Enter)">↑</button>
+    </div>
+    <div id="hint">Enter 发送 · Shift+Enter 换行 · 对话记录自动保存</div>
+  </div>
+</div>
+
+<script>
+let currentChar = null;   // { slug, name }
+let sessionId   = null;   // claude session UUID
+let busy        = false;
+
+// ── Load characters ──────────────────────────────────────────────────────────
+async function loadChars() {
+  const res = await fetch("/api/characters");
+  const chars = await res.json();
+  const list = document.getElementById("char-list");
+  // keep label
+  list.innerHTML = '<div class="hist-label" style="padding:8px 4px 4px">角色</div>';
+  for (const c of chars) {
+    const el = document.createElement("div");
+    el.className = "char-item";
+    el.dataset.slug = c.slug;
+    // Build with DOM — never inject name/slug via innerHTML (XSS)
+    const dot = document.createElement("div");
+    dot.className = "char-dot";
+    const info = document.createElement("div");
+    const nameEl = document.createElement("div");
+    nameEl.className = "char-name";
+    nameEl.textContent = c.name;
+    const slugEl = document.createElement("div");
+    slugEl.className = "char-slug";
+    slugEl.textContent = c.slug;
+    info.append(nameEl, slugEl);
+    el.append(dot, info);
+    el.onclick = () => selectChar(c);
+    list.appendChild(el);
+  }
+}
+
+// ── Select character ─────────────────────────────────────────────────────────
+function selectChar(c) {
+  currentChar = c;
+  sessionId   = null;  // new session
+
+  // Update sidebar highlight
+  document.querySelectorAll(".char-item").forEach(el => {
+    el.classList.toggle("active", el.dataset.slug === c.slug);
+  });
+
+  // Update topbar
+  document.getElementById("char-title").textContent = c.name;
+  document.getElementById("char-subtitle").textContent = `${c.slug} · skill-everyone · web`;
+  document.getElementById("online-dot").style.display = "block";
+
+  // Show chat area
+  document.getElementById("no-char").style.display   = "none";
+  document.getElementById("messages").style.display  = "flex";
+  document.getElementById("input-bar").style.display = "block";
+
+  // Clear messages
+  document.getElementById("messages").innerHTML = "";
+  document.getElementById("msg-input").focus();
+
+  // Load history for this character
+  loadHistory(c.slug);
+}
+
+// ── New chat (reset session, keep character) ─────────────────────────────────
+function newChat() {
+  sessionId = null;
+  if (document.getElementById("messages")) {
+    document.getElementById("messages").innerHTML = "";
+  }
+}
+
+// ── Send message ─────────────────────────────────────────────────────────────
+async function sendMessage() {
+  if (busy || !currentChar) return;
+  const input = document.getElementById("msg-input");
+  const text  = input.value.trim();
+  if (!text) return;
+
+  input.value = "";
+  autoResize(input);
+  busy = true;
+  document.getElementById("send-btn").disabled = true;
+
+  // Append user bubble
+  appendBubble("user", "Claude", text);
+
+  // Append thinking indicator
+  const thinkEl = appendThinking();
+
+  try {
+    const body = { message: text };
+    if (sessionId) {
+      body.sessionId = sessionId;
+    } else {
+      body.character = currentChar.slug;
+    }
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    const reader = res.body.getReader();
+    const dec    = new TextDecoder();
+    let   buf    = "";
+    let   asstEl = null;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+
+      const lines = buf.split("\n");
+      buf = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith("data: ")) continue;
+        let evt;
+        try { evt = JSON.parse(line.slice(6)); } catch { continue; }
+
+        if (evt.type === "session") {
+          sessionId = evt.sessionId;
+        } else if (evt.type === "text") {
+          if (thinkEl) thinkEl.remove();
+          if (!asstEl) asstEl = appendBubble("assistant", currentChar.name, "", true);
+          const bubbleEl = asstEl.querySelector(".msg-bubble");
+          const cur = bubbleEl.querySelector(".cursor");
+          if (cur) cur.remove();
+          bubbleEl.appendChild(document.createTextNode(evt.text));
+          bubbleEl.appendChild(makeCursor());
+          scrollBottom();
+        } else if (evt.type === "error") {
+          if (thinkEl) thinkEl.remove();
+          appendBubble("assistant", "系统", `错误：${evt.error}`);
+        } else if (evt.type === "done") {
+          if (asstEl) {
+            const cur = asstEl.querySelector(".cursor");
+            if (cur) cur.remove();
+          } else {
+            // done fired but no text ever arrived
+            if (thinkEl) thinkEl.remove();
+            appendBubble("assistant", "系统", "(无回复，请重试)");
+          }
+          loadHistory(currentChar.slug);
+        }
+      }
+    }
+  } catch (e) {
+    thinkEl && thinkEl.remove();
+    appendBubble("assistant", "系统", `错误：${e.message}`);
+  }
+
+  busy = false;
+  document.getElementById("send-btn").disabled = false;
+  document.getElementById("msg-input").focus();
+}
+
+// ── DOM helpers ──────────────────────────────────────────────────────────────
+function appendBubble(side, label, text, withCursor = false) {
+  const msgs   = document.getElementById("messages");
+  const row    = document.createElement("div");
+  row.className = `msg-row ${side}`;
+  // Build with DOM — label/text via textContent to prevent XSS
+  const labelEl  = document.createElement("div");
+  labelEl.className = "msg-label";
+  labelEl.textContent = label;
+  const bubble = document.createElement("div");
+  bubble.className = "msg-bubble";
+  if (text) bubble.appendChild(document.createTextNode(text));
+  if (withCursor) bubble.appendChild(makeCursor());
+  row.append(labelEl, bubble);
+  msgs.appendChild(row);
+  scrollBottom();
+  return row;
+}
+
+function appendThinking() {
+  const msgs    = document.getElementById("messages");
+  const row     = document.createElement("div");
+  row.className = "msg-row assistant";
+  const labelEl = document.createElement("div");
+  labelEl.className = "msg-label";
+  labelEl.textContent = currentChar?.name || "";
+  const dots = document.createElement("div");
+  dots.className = "thinking";
+  dots.innerHTML = "<span></span><span></span><span></span>"; // safe: no user data
+  row.append(labelEl, dots);
+  msgs.appendChild(row);
+  scrollBottom();
+  return row;
+}
+
+function makeCursor() {
+  const c = document.createElement("span");
+  c.className = "cursor";
+  return c;
+}
+
+function scrollBottom() {
+  const msgs = document.getElementById("messages");
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── History ──────────────────────────────────────────────────────────────────
+async function loadHistory(slug) {
+  const res      = await fetch(`/api/history/${slug}`);
+  const sessions = await res.json();
+  const list     = document.getElementById("hist-list");
+  list.innerHTML = "";
+
+  for (const s of sessions) {
+    const el = document.createElement("div");
+    el.className = "hist-session";
+    const preview = s.messages[0]?.content?.slice(0, 28) || "（空）";
+    el.textContent = `${s.date}  ${preview}…`;
+    el.title = `${s.messages.length} 条消息`;
+    el.onclick = () => loadSessionIntoChat(s.messages);
+    list.appendChild(el);
+  }
+}
+
+function loadSessionIntoChat(messages) {
+  const msgs = document.getElementById("messages");
+  msgs.innerHTML = "";
+  sessionId = null;  // view only — start a fresh session if user replies
+
+  for (const m of messages) {
+    const label = m.role === "user" ? "Claude" : (currentChar?.name || "角色");
+    appendBubble(m.role === "user" ? "user" : "assistant", label, m.content);
+  }
+}
+
+// ── Keyboard / resize ────────────────────────────────────────────────────────
+function onKey(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 160) + "px";
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+loadChars();
+</script>
+</body>
+</html>

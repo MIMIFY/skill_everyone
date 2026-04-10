@@ -40,6 +40,25 @@
   <strong>skill-everyone · Summon 改变这件事。</strong>
 </div>
 
+<br>
+
+## ✦ Demo
+
+<div align="center">
+
+<!-- 上传视频到 GitHub Release 后，将下方 src 替换为实际 URL -->
+<!-- 视频文件：video/out/skill-everyone-demo.mp4 (4.4 MB, 59s) -->
+<!--
+<video src="YOUR_GITHUB_RELEASE_VIDEO_URL" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
+-->
+
+> 视频演示正在上传中。请前往 [Releases](../../releases) 页面查看，或 clone 后本地运行：
+> ```bash
+> cd video && npx remotion studio
+> ```
+
+</div>
+
 <br><br>
 
 ## ✦ 它能做什么
@@ -118,6 +137,8 @@ Summon 会调研、提炼、建模。然后把 TA 变成一个可以开口说话
 赛涅斯的「智性化防御」决定了他用理性句式隔离情感。*被触碰痛点时，他不会直接说「我受伤了」。*
 
 塞尔达的「严苛标准图式」决定了她对「还不够好」的话题反应最强烈。*即使力量已经觉醒，那个自我怀疑的声音从未完全消失。*
+
+鼬的「回避型依恋 · 后习俗道德推理」决定了他越在乎，越主动拉开距离——用距离保护，而非遗弃。*他从不解释，因为解释意味着期待被理解。*
 
 <br>
 
@@ -203,6 +224,29 @@ Summon 会调研、提炼、建模。然后把 TA 变成一个可以开口说话
 
 </details>
 
+<details>
+<summary><b>💬 宇智波鼬 · 沉浸对话</b></summary>
+
+<br>
+
+```
+用户   ❯ 你后悔过吗？
+
+鼬     ❯ 后悔？
+
+        后悔的前提是，当时有别的路可以走。
+
+        我把每一条路都算过了。
+        有些算法，答案从第一步就已经确定了。
+
+        *他抬起眼，神情没有一丝波动。*
+
+        不后悔，不代表不疼。
+        只是疼，不影响答案。
+```
+
+</details>
+
 <br>
 
 ## ✦ 原创角色
@@ -255,6 +299,12 @@ cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 
 ## ✦ 用法
 
+两种方式，选一种，或者同时用——底层调用的是同一个 Claude，凭证完全共用。
+
+<br>
+
+### 💻 命令行
+
 <table>
 <tr><td>
 
@@ -291,6 +341,30 @@ cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 
 <br>
 
+### 🌐 本地 Web UI
+
+不想在终端里聊天？一行命令启动本地网页，气泡对话框，对话记录自动保存。
+
+```bash
+cd ~/.claude/skills/skill-everyone/web
+npm install   # 首次运行执行一次
+npm start
+
+# 浏览器打开 http://localhost:3000
+```
+
+**与命令行完全等价**：Web UI 调用的是同一个 `claude` 二进制文件，读取同一份 `~/.claude/` 凭证。订阅用户走订阅，API key 用户走 API key，不需要任何额外配置。
+
+**使用方式：**
+
+1. 左侧栏点击任意角色名 → 进入对话界面
+2. 底部输入框输入内容，**Enter** 发送，**Shift+Enter** 换行
+3. 角色回复实时流式显示，多轮对话上下文自动保留
+4. 想换个话题：点击「＋ 新对话」重新开始
+5. 对话记录自动保存到 `web/history/<角色>/YYYY-MM-DD.json`，左下角点击可回顾历史
+
+<br>
+
 ## ✦ 已有角色
 
 <div align="center">
@@ -300,6 +374,7 @@ cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 | 林黛玉 | 红楼梦原著 | `/lin-daiyu-novel` | `/lin-daiyu-novel-perspective` |
 | 赛涅斯 | 外星异种驯化手册 | `/sainisi-alien-taming` | `/sainisi-alien-taming-perspective` |
 | 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
+| 宇智波鼬 | 火影忍者 | `/itachi-naruto` | `/itachi-naruto-perspective` |
 | 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
 
 </div>
@@ -329,6 +404,19 @@ cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 ```
 
 可以直接复制给别人使用，不依赖 skill-everyone 安装。
+
+本地 Web UI 的文件结构：
+
+```
+skill-everyone/web/
+├── server.js             # Express 后端，调用 claude CLI
+├── package.json
+├── public/
+│   └── index.html        # 气泡对话界面
+└── history/
+    └── <slug>/
+        └── YYYY-MM-DD.json   # 对话记录（自动生成）
+```
 
 <br>
 

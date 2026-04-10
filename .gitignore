@@ -19,3 +19,12 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Node dependencies (both web/ and video/)
+node_modules/
+
+# Rendered video output (distributed via GitHub Releases, not in repo)
+video/out/
+
+# Local chat history (user-specific, not for repo)
+web/history/
