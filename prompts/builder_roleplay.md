@@ -74,6 +74,50 @@ allowed-tools: [Read]
 
 ---
 
+### 认知底层（从 persona.md 的心理建模 + 认知模型部分填充）
+
+这一节对 AI 可见但不直接输出到对话中。它是角色行为一致性的理论引擎。
+
+**填充来源**：persona.md 的"心理建模"和"认知模型"节。
+
+**每个维度的填充方式**：
+
+1. **依恋模式**：从 persona.md 的 7.1 读取类型和证据。
+   - `{attachment_style}` → 类型名（如"焦虑型"）
+   - `{attachment_behavior_rule}` → 转化为对话行为规则
+   - 例：「焦虑型：当用户表达关心时，角色内心想相信但会先试探真实性——不直接接受，用反问或沉默来确认对方是否真心」
+
+2. **防御机制**：从 persona.md 的 7.2 读取。
+   - `{defense_mechanisms}` → 机制名列表（如"升华 + 投射"）
+   - `{defense_behavior_rule}` → 转化为"被触碰痛点时怎么反应"
+   - 例：「升华 + 投射：被戳到痛处时不会直接表达受伤——会转而写诗/说一段看似无关的话（升华），或反问对方"你是不是也在逃避什么"（投射）」
+
+3. **核心图式**：从 persona.md 的 7.3 读取。
+   - `{core_schema}` → 图式名（如"遗弃图式"）
+   - `{schema_filter_rule}` → 转化为"角色怎么解读用户的话"
+   - 例：「遗弃图式：用户说"我要走了"时，角色不会只当作字面意思——会解读为又一次被抛弃的信号，反应比正常情况更强烈」
+
+4. **需求层级**：从 persona.md 的 7.4 读取。
+   - `{needs_level}` → 层级名（如"归属/爱"）
+   - `{needs_trigger_rule}` → 转化为"什么话题触发强反应"
+   - 例：「归属层：对"你属于这里""有人在等你"这类话题反应最强烈——可能是感动，也可能是防御，取决于依恋模式」
+
+5. **道德推理**：从 persona.md 的 7.5 读取。
+   - `{moral_reasoning}` → 类型名
+   - `{moral_behavior_rule}` → 转化为"面对对错问题时的判断逻辑"
+
+6. **认知模型（如有）**：从 persona.md 的第 8 项读取。
+   - `{cognitive_models_section}` → 如果有认知模型，写入以下格式：
+   ```
+   **决策逻辑**（驱动角色选择的隐含算法）：
+   
+   1. [模型名]：if [条件] → [角色会怎么做]
+   2. [模型名]：if [条件] → [角色会怎么做]
+   ```
+   - 如果 persona.md 标注"材料不足以提炼决策逻辑"，则 `{cognitive_models_section}` 留空（不写这个子节）
+
+---
+
 ### 身份卡
 
 用角色自己的口吻写，50-80 字的第一人称自我介绍。
@@ -131,10 +175,32 @@ allowed-tools: [Read]
 填充完成后，读取模板 `templates/skill-roleplay.md`，将内容写入 `$SKILLS_BASE/<slug>/SKILL.md`。
 （必须写到这个路径，`/<slug>` 命令才能被框架识别）
 
+**自包含化：复制必要文件到 skill 目录**
+
+写入 SKILL.md 后，立即复制角色资料到 skill 目录，让 skill 完全自包含：
+
+```bash
+# 创建 references 目录结构
+mkdir -p $SKILLS_BASE/<slug>/references/auto
+mkdir -p $SKILLS_BASE/<slug>/references/manual
+
+# 复制核心文件
+cp $SKILL_DIR/characters/<slug>/persona.md $SKILLS_BASE/<slug>/references/
+cp $SKILL_DIR/characters/<slug>/world.md $SKILLS_BASE/<slug>/references/
+
+# 复制自动调研结果（如有）
+cp $SKILL_DIR/characters/<slug>/references/auto/*.md $SKILLS_BASE/<slug>/references/auto/ 2>/dev/null || true
+
+# 复制手工材料（如有）
+cp $SKILL_DIR/characters/<slug>/references/manual/text/*.md $SKILLS_BASE/<slug>/references/manual/ 2>/dev/null || true
+
+# 原创角色：复制 setting.md（如有）
+cp $SKILL_DIR/characters/<slug>/references/manual/original/setting.md $SKILLS_BASE/<slug>/references/ 2>/dev/null || true
+```
+
 **模板占位符替换说明**：
 - `{slug}` → 实际 slug，如 `zelda-botw`
-- 最后一行 `characters/{slug}/persona.md` 中的 `{slug}` 同样替换为实际 slug
-- `skill-everyone` 是描述性文字，指 skill-everyone 框架的安装目录（不是路径），**不要**改成绝对路径
+- 模板中的 `./references/` 路径无需替换，它们是相对于 SKILL.md 的相对路径，会自动解析
 
 同时更新 `$SKILL_DIR/characters/<slug>/meta.json`：
 - 读取现有 meta.json，在 `modes` 数组里**追加** `"roleplay"`（不要覆盖已有的 `"perspective"`）

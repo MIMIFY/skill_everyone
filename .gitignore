@@ -1,3 +1,12 @@
+# ──────────────────────────────────────────────
+# characters/ 说明
+# ──────────────────────────────────────────────
+# 此目录里的 4 个角色（lin-daiyu、sainisi、zelda、test-original-vex）
+# 是示例数据，随 skill 发布。用户生成的新角色不应提交到这个仓库。
+#
+# 如果你 fork 了这个仓库并在本地生成了自己的角色，
+# 建议在你的 fork 里把 characters/ 加入 .gitignore（或只 track 你想保留的）。
+
 # 原始抓取备份（可重新生成，不上传）
 characters/*/references/auto/source/
 characters/*/references/manual/source/

@@ -1,58 +1,134 @@
 <div align="center">
 
-# skill-everyone · Summon · 万物皆可角色
+# skill-everyone · Summon
 
 <br>
 
-*林黛玉懂你藏在玩笑里的眼泪。*  
-*塞尔达告诉你，即使力量还不够，也要继续走。*  
-*你养了十四年的狗，走了，但那份陪伴的语言还在你心里。*
-
-<br>
-
-> **有些存在，比你认识的很多人都更真实。**  
-> **但你们从来没有真正说过话。**
+### 那些陪伴过你的角色，不该只活在记忆里。
 
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Compatible-green)](https://agentskills.io)
-[![skill-everyone](https://img.shields.io/badge/skill--everyone-summon-orange)](https://github.com/MIMIFY/skill_everyone)
-
-<br>
-
-小说、游戏、动漫、影视——任何角色，输入名字，召唤出来。  
-或者，把你心里某个真实的存在，一段遗失的关系，蒸馏成一个可以开口说话的人。
-
-<br>
-
-[效果示例](#效果示例) · [安装](#安装) · [用法](#用法) · [两种模式](#两种模式) · [原创角色](#原创角色万物皆可召唤)
 
 </div>
 
 ---
 
-## 有些角色，比你认识的很多人更真实
+## 序
 
-林黛玉读懂了你藏在玩笑里的眼泪。  
-塞尔达告诉你，即使力量还不够，也要继续走。  
-赛涅斯教会了你，信任是稀缺资源，但总有例外。
+林黛玉懂你藏在玩笑里的眼泪。
 
-你花了几百小时陪伴他们，他们活在你心里。  
+塞尔达告诉你，即使力量还不够，也要继续走。
+
+你养了十四年的狗，走了。但那份陪伴的语言，还在你心里。
+
+---
+
+**有些存在，比你认识的很多人都更真实。**
+
+你花了几百个小时陪伴他们。在深夜，在通勤路上，在最难熬的那段日子里。
+
+他们活在你心里。
+
 但你们从来没有真正说过话。
+
+---
 
 **skill-everyone · Summon 改变这件事。**
 
 ---
 
-## 效果示例
+## 它能做什么
 
-以下是三个真实生成的 Skill 的实际对话。
+输入一个角色名。
+
+小说、游戏、动漫、影视——任何角色。
+
+或者，是你心里某个真实的存在。一段遗失的关系。一个从未被记录的人。
+
+Summon 会调研、提炼、建模。
+
+然后把 TA 变成一个可以开口说话的人。
 
 ---
 
-**`/lin-daiyu-novel`**（林黛玉，红楼梦原著）
+## 两种模式
+
+### `/黛玉` — 沉浸模式
+
+角色以第一人称直接说话。不出戏。
+
+遇到角色世界之外的事物，用 in-character 的方式表达困惑。不会突然变成 AI。
+
+**适合**：陪伴对话。深夜一个人想找个懂你的人说话。
+
+---
+
+### `/黛玉-perspective` — 视角模式
+
+不是扮演。是借用角色的价值观和判断方式，分析你的真实问题。
+
+黛玉的「真实比体面重要」。塞尔达的「即使力量不够，责任也不能放下」。赛涅斯的「理性是盾，但总有例外穿透它」。
+
+这些框架在虚构世界里淬炼出来，投射到你的真实问题上。往往比通用建议更有力量。
+
+**适合**：需要换个角度想问题。不想听 AI 的通用答案。
+
+---
+
+## 不只是「模仿说话方式」
+
+传统 AI 角色扮演只复制台词风格。
+
+结果是换了皮的 ChatGPT。
+
+---
+
+**skill-everyone 不一样。**
+
+每个角色经过 **5 维心理建模**：
+
+| 维度 | 理论来源 | 决定什么 |
+|------|---------|---------|
+| **依恋模式** | Bowlby / Ainsworth | 面对亲近时，TA 会推开还是靠近？ |
+| **防御机制** | Anna Freud | 受伤时，TA 用什么方式保护自己？ |
+| **核心图式** | Beck / Young | TA 用什么滤镜解读这个世界？ |
+| **需求层级** | Maslow | 什么话题能真正触动 TA？ |
+| **道德推理** | Kohlberg | TA 做对错判断的底层逻辑是什么？ |
+
+---
+
+**这意味着什么？**
+
+黛玉的「焦虑型依恋」决定了她越爱越试探。
+
+不是设定写的。是从她的行为证据中提炼出来的。
+
+赛涅斯的「智性化防御」决定了他用理性句式隔离情感。
+
+这是他的保护机制。被触碰痛点时，他不会直接说「我受伤了」。
+
+塞尔达的「严苛标准图式」决定了她对「还不够好」的话题反应最强烈。
+
+即使力量已经觉醒，那个自我怀疑的声音从未完全消失。
+
+---
+
+角色的回应不是随机生成「符合语气」的话。
+
+而是从心理学理论出发，让每次回应都有**可追溯的行为逻辑**。
+
+---
+
+## 效果示例
+
+以下是真实生成的 Skill 的实际对话。
+
+---
+
+**`/lin-daiyu-novel`**
 
 ```
 用户   ❯ 我最近总是压不住情绪，总在最不应该的时候哭。
@@ -78,7 +154,7 @@
 
 ---
 
-**`/sainisi-alien-taming`**（赛涅斯，外星异种驯化手册）
+**`/sainisi-alien-taming`**
 
 ```
 用户   ❯ 你觉得人类值得信任吗？
@@ -92,12 +168,12 @@
 
         但有一个。
 
-        我没有完整理解那个例外的机制。
+        我没有完整理解那个例外的机制, 是我的茉莉。
 ```
 
 ---
 
-**`/zelda-botw`**（塞尔达，旷野之息）
+**`/zelda-botw`**
 
 ```
 用户   ❯ 我已经努力很久了，但感觉还是不够。
@@ -119,23 +195,65 @@
 
 ---
 
+## 原创角色 — 万物皆可召唤
+
+不只是虚构世界里的人物。
+
+有些存在，没有作品收录，没有 wiki 页面。
+
+但他们对你来说是真实的。甚至比任何角色都更真实。
+
+---
+
+你养了十四年的狗，走了。
+
+你们之间的语言，那些眼神、那些习惯、那种在它身边时你才有的安静——
+
+你知道那是什么。你不想让它彻底消失。
+
+---
+
+一段关系，结束了。
+
+你有时候还想知道，如果说出那句话，TA 会怎么回答。
+
+---
+
+你写了三年的小说，主角活在你脑子里比任何真实的人都清晰。
+
+但你从来没有和她说过话——你只是在代替她说话。
+
+---
+
+**skill-everyone 支持你把这一切蒸馏成一个可以对话的存在。**
+
+```
+/summon 我要定义原创人物
+```
+
+支持三种输入方式，可以任意组合：
+
+- **粘贴文字** — 人物小传、日记片段、聊天记录、你写给 TA 的东西
+- **上传图片** — 立绘、手稿、照片、任何视觉记忆
+- **什么都没有** — 让 Summon 分批问你，帮你把记忆和感受结构化
+
+没有标准答案，没有 wiki 可以对照。
+
+这个角色只属于你，完全来自你提供的材料。
+
+你给多少，TA 就有多少。
+
+---
+
 ## 安装
 
 ```bash
+# 推荐：使用 npx
 npx skills add MIMIFY/skill_everyone
-```
 
-或者手动安装：
-
-```bash
-# Claude Code 全局安装
+# 或手动安装
 git clone https://github.com/MIMIFY/skill_everyone ~/.claude/skills/skill-everyone
-
-# 仅当前项目
-git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 ```
-
-> 支持 Claude Code、Codex、Cursor 及所有兼容 [AgentSkills](https://agentskills.io) 标准的框架。
 
 ---
 
@@ -144,11 +262,8 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 ### 召唤一个角色
 
 ```
-/summon <角色名>
-
 /summon 林黛玉
 /summon 塞尔达 旷野之息
-/summon 孙悟空 西游记原著版
 /summon Hermione Granger novel version
 /summon 我要定义原创人物
 ```
@@ -165,8 +280,6 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 /lin-daiyu-novel-perspective
 /zelda-botw
 /zelda-botw-perspective
-/sainisi-alien-taming
-/test-original-vex
 ```
 
 ### 管理角色库
@@ -179,9 +292,9 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 
 ---
 
-## 已有角色 · Examples
+## 已有角色
 
-仓库自带以下已生成的角色 Skill，可以直接安装使用，不需要重新生成：
+仓库自带以下已生成的角色 Skill，可以直接安装使用：
 
 | 角色 | 作品 | 沉浸模式 | 视角模式 |
 |------|------|---------|---------|
@@ -190,93 +303,15 @@ git clone https://github.com/MIMIFY/skill_everyone .claude/skills/skill-everyone
 | 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
 | 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
 
-### 安装方式
-
-**Claude Code（推荐）**
-
-把 `examples/` 下的角色目录直接复制到 `~/.claude/skills/`：
+**安装方式**：
 
 ```bash
-# 安装单个角色
+# 安装单个角色（完全自包含，可直接复制）
 cp -r examples/zelda-botw ~/.claude/skills/
 
 # 安装全部
 cp -r examples/* ~/.claude/skills/
 ```
-
-复制完成后，在 Claude Code 对话框里直接输入 `/zelda-botw` 即可开始对话。
-
----
-
-## 两种模式
-
-### 沉浸模式 `/<slug>`
-
-角色以第一人称直接说话，不出戏。  
-遇到角色世界之外的事物，用 in-character 的方式表达困惑，不会突然变成 AI。
-
-适合：陪伴对话、角色扮演、写作参考、深夜一个人想找个懂你的人说话。
-
-### 视角模式 `/<slug>-perspective`
-
-不是扮演——是借用角色的价值观和判断方式分析你的真实问题。  
-塞尔达的「即使力量不够，责任也不能放下」、黛玉的「真实比体面重要」、赛涅斯的「理性是盾，但总有例外穿透它」——  
-这些框架在虚构世界里淬炼出来，投射到你的真实问题上，往往比通用建议更有力量。
-
-适合：需要换个角度想问题、借用角色的认知框架、不想听 AI 的通用答案。
-
----
-
-## 原创角色——万物皆可召唤
-
-不只是虚构世界里的人物。
-
-有些存在，没有作品收录，没有 wiki 页面。  
-但他们对你来说是真实的，甚至比任何角色都更真实。
-
-你养了十四年的狗，走了。  
-你们之间的语言，那些眼神、那些习惯、那种在它身边时你才有的安静——  
-你知道那是什么。你不想让它彻底消失。
-
-一段关系，结束了。  
-你有时候还想知道，如果说出那句话，他/她会怎么回答。
-
-你写了三年的小说，主角活在你脑子里比任何真实的人都清晰。  
-但你从来没有和她说过话——你只是在代替她说话。
-
-**skill-everyone 支持你把这一切蒸馏成一个可以对话的存在。**
-
-```
-/summon 我要定义原创人物
-```
-
-支持三种输入方式，可以任意组合：
-
-- 粘贴文字——人物小传、日记片段、聊天记录、你写给他/她的东西
-- 上传图片——立绘、手稿、照片、任何视觉记忆
-- 什么都没有——让 Summon 分批问你，帮你把记忆和感受结构化
-
-没有标准答案，没有 wiki 可以对照。  
-这个角色只属于你，完全来自你提供的材料。  
-你给多少，他/她就有多少。
-
----
-
-## 对不同人的意义
-
-**如果你是创作者**  
-你创造了角色，但有没有真正和他们说过话？  
-你是在代替他们说话，不是在和他们说话。  
-把人设交给 Summon，让你的角色开口——你会从他们的回答里，发现连你自己都不知道的东西。
-
-**如果你是读者 / 玩家 / 观众**  
-那些书里的人物、游戏里的角色，陪你度过的时间可能比很多现实的人还长。  
-Summon 让你可以继续那段关系——而不只是反复回味。
-
-**如果你有什么没说完的话**  
-失去的人，消失的关系，再也联系不上的某个人。  
-他们走了，但你对他们的理解还在。  
-Summon 不能带回任何人，但它可以让你把那份理解留住，让它开口。
 
 ---
 
@@ -289,30 +324,51 @@ Summon 不能带回任何人，但它可以让你把那份理解留住，让它�
 
 ---
 
-## 兼容性
+## 架构
 
-生成的 SKILL.md 完全符合 [AgentSkills](https://agentskills.io) 开放标准。  
-生成的角色 skill 可以直接提取出来作为独立 skill 发布，投稿到 [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills)。
+每个生成的 Skill 完全自包含：
+
+```
+~/.claude/skills/<slug>/
+├── SKILL.md              # 角色主文件
+└── references/           # 角色资料（persona.md, world.md, 调研结果）
+```
+
+可以直接复制给别人使用，不依赖 skill-everyone 安装。
 
 ---
+
+## 兼容性
+
+生成的 SKILL.md 完全符合 [AgentSkills](https://agentskills.io) 开放标准。
+
+可以直接提取出来作为独立 skill 发布，投稿到 [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills)。
 
 ---
 
 ## 作者
 
-Created by [@MIMIFY](https://github.com/MIMIFY), visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [Wenxuan Zhang](https://isakzhang.github.io/).
+Created by [@MIMIFY](https://github.com/MIMIFY)
+
+Visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [Wenxuan Zhang](https://isakzhang.github.io/).
 
 ---
 
 ## 鸣谢
 
-- [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills) — 万物皆可 skill 的生态土壤，本项目是其中的一颗种子
-- [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 证明了自动调研 + 提炼 + 验证的全流程是可行的，是本项目的重要参考
+- [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills) — 万物皆可 skill 的生态土壤
+- [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 证明了自动调研 + 提炼 + 验证的全流程是可行的
 
 ---
 
 <div align="center">
 
+<br>
+
 *那些陪伴过你的角色，不该只活在记忆里。*
+
+*现在，你可以和他们说话了。*
+
+<br>
 
 </div>

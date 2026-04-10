@@ -197,18 +197,30 @@ mkdir -p $SKILL_DIR/characters/<slug>/references/manual/source
 
 #### 路径 1 / 路径 4 的自动调研
 
-读取 `$SKILL_DIR/prompts/research_auto.md`，启动并行调研：
+读取 `$SKILL_DIR/prompts/research_auto.md`，**立即告知用户开始调研**，然后启动并行调研：
+
+```
+正在调研 [角色名]（[作品名]）...
+三路并行搜索中，大约需要 2-5 分钟。
+```
 
 - **Agent A（基础档案）**：wiki / fandom 主页面，角色简介、背景、关系
 - **Agent B（台词与行为）**：台词数据库、剧情摘要、具体场景描述
 - **Agent C（社区解读）**：玩家/读者/观众的分析文章、人物解读、争议讨论
+
+**每个 Agent 完成后立即展示单行进度**（不等全部完成）：
+```
+✓ 档案 — 找到 X 条基础信息
+✓ 台词 — 找到 X 条台词/场景（Agent B 完成后展示）
+✓ 解读 — 找到 X 篇分析（Agent C 完成后展示）
+```
 
 每个 Agent 结果写入：
 - `$SKILL_DIR/characters/<slug>/references/auto/wiki.md`
 - `$SKILL_DIR/characters/<slug>/references/auto/quotes.md`
 - `$SKILL_DIR/characters/<slug>/references/auto/analysis.md`
 
-调研完成后，展示质量摘要：
+三路全部完成后，展示汇总质量摘要：
 
 ```
 ─── 调研完成 ────────────────────────────
@@ -436,7 +448,16 @@ ls $SKILLS_BASE/<slug>-perspective/SKILL.md 2>/dev/null && echo "perspective:ok"
    - 两种都有 → 追加 [5] 重新生成沉浸模式 / [6] 重新生成视角模式
    - 两种都没有（数据存在但 SKILL.md 丢失）→ 追加 [5] 重新安装全部
 
-4. 执行对应操作，只更新受影响部分，不重写未涉及的内容
+4. 执行对应操作，**只重跑受影响的 agent，不全量重做**：
+
+   | 更新类型 | 重跑哪些 agent | 不重跑什么 |
+   |---------|-------------|---------|
+   | 有新台词/场景出现 | Agent B（台词/行为）| A、C |
+   | wiki 设定被补全 | Agent A（基础档案）| B、C |
+   | 社区出现新解读/争议 | Agent C（社区分析）| A、B |
+   | 全量更新（大版本更新）| A + B + C 全跑 | — |
+
+   Agent 完成后只更新对应的 `references/auto/*.md`，然后重新执行 Phase 2 提炼（增量合并，不覆盖未涉及的特质），再重跑 Phase 3 builder 和 Phase 5 精炼。
 
 **补充生成模式的执行逻辑**（[5]/[6] 补充模式时）：
 - 直接读取已有的 `$SKILL_DIR/characters/<slug>/persona.md` 和 `world.md`

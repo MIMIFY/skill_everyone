@@ -4,6 +4,51 @@ Phase 1 路径 1 / 路径 4 时读取此文件。
 
 ---
 
+## Phase 0：工具与能力扫描（调研前必须执行）
+
+**在启动任何 Agent 之前**，先做以下检查，结果影响后续调研策略。
+
+### 1. 扫描已安装的能力型 skill
+
+```bash
+# 扫描 $SKILLS_BASE/ 下是否有研究辅助 skill
+ls $SKILLS_BASE/ 2>/dev/null | grep -E 'video|reader|research|article|gemini|pdf'
+```
+
+如果发现以下 skill，调研时优先使用（不要默认从 WebSearch 从零开始）：
+
+| Skill 名称模式 | 用途 | 何时调用 |
+|-------------|------|---------|
+| `*video*` / `*gemini*` | 视频内容理解 | 角色有官方 PV、访谈视频 |
+| `*reader*` / `*article*` | 网页/文章提取 | WebFetch 遇到反爬 |
+| `*pdf*` | PDF 阅读 | 用户提供了 PDF 素材 |
+| `*research*` | 通用调研辅助 | 复杂来源需要多步骤 |
+
+**使用方式**：在对应 Agent 的 prompt 里说明「优先使用 [skill名] 完成此步骤」。
+
+### 2. 检查本机工具
+
+```bash
+# 检查 yt-dlp 可用性
+YTDLP=$(command -v yt-dlp 2>/dev/null || echo ~/.local/bin/yt-dlp)
+[ -f "$YTDLP" ] && echo "yt-dlp: 可用 ($YTDLP)" || echo "yt-dlp: 不可用"
+
+# 检查 scrapling 可用性
+python3 -c "import scrapling; print('scrapling: 可用')" 2>/dev/null || echo "scrapling: 不可用"
+```
+
+### 3. 根据扫描结果决定调研策略
+
+| 情况 | 策略 |
+|------|------|
+| yt-dlp 可用 + 角色有视频素材 | Agent B 优先走 yt-dlp 提取字幕，再补 WebSearch |
+| 有 reader/article skill | Agent A/C 遇到反爬时调用，不要直接放弃 |
+| 什么工具都没有 | 纯 WebSearch + WebFetch，走标准流程 |
+
+**扫描完成后继续执行 Phase 1。如果有可用工具，在每个 Agent 的 prompt 里明确告知。**
+
+---
+
 ## 目录结构约定
 
 ```
