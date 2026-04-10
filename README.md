@@ -238,8 +238,17 @@ Summon 会调研、提炼、建模。然后把 TA 变成一个可以开口说话
 ## ✦ 安装
 
 ```bash
-# 推荐：克隆到 Claude Code skills 目录
+# 1. 安装 skill-everyone（角色生成器）
 git clone https://github.com/MIMIFY/skill_everyone ~/.claude/skills/skill-everyone
+
+# 2. 安装预置角色（可选，可以直接使用）
+cp -r ~/.claude/skills/skill-everyone/examples/lin-daiyu-novel ~/.claude/skills/
+cp -r ~/.claude/skills/skill-everyone/examples/lin-daiyu-novel-perspective ~/.claude/skills/
+cp -r ~/.claude/skills/skill-everyone/examples/zelda-botw ~/.claude/skills/
+cp -r ~/.claude/skills/skill-everyone/examples/zelda-botw-perspective ~/.claude/skills/
+
+# 或一次性安装全部预置角色
+cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 ```
 
 <br>
