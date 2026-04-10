@@ -168,6 +168,11 @@ echo "yt-dlp=$YTDLP_OK scrapling=$SCRAPLING_OK chromium=$CHROMIUM_OK"
 回复两个选项即可，例如：「A, 2」= 沉浸对话 + 我来提供文字
 ```
 
+**重复检测**：生成 slug 后，检查是否已有同名角色（详见 intake.md "重复角色检测"节）：
+- 检查 `$SKILL_DIR/characters/<slug>/meta.json` 和 `$SKILLS_BASE/<slug>/SKILL.md`
+- 如有重复，提示用户选择：重新生成 / 追加材料 / 更新设定 / 取消
+- 用户确认后才继续
+
 用户选完后**立即**创建目录，不再等待：
 
 ```bash

@@ -117,6 +117,87 @@ Phase 0 执行时读取此文件。目标：**最多 3 轮问答**，拿到所�
 
 ---
 
+## 重复角色检测
+
+**在确认角色身份后、开始生成 slug 前，必须检测是否已有同名角色。**
+
+### 检测方法
+
+1. 根据角色名和版本生成候选 slug
+2. 检查以下两个位置是否存在：
+   - `$SKILL_DIR/characters/<slug>/meta.json`（工厂数据）
+   - `$SKILLS_BASE/<slug>/SKILL.md`（已安装的 skill）
+
+```bash
+# 检测命令示例
+SLUG="lin-daiyu-novel"
+if [ -f "$SKILL_DIR/characters/$SLUG/meta.json" ] || [ -f "$SKILLS_BASE/$SLUG/SKILL.md" ]; then
+  echo "EXISTS"
+else
+  echo "NEW"
+fi
+```
+
+### 发现重复时的处理
+
+如果检测到已有角色，**停止**正常流程，展示以下提示：
+
+```
+─────────────────────────────────
+⚠ 发现已有角色：[角色名]（[版本]）
+
+已有数据位置：
+  · 角色资料：$SKILL_DIR/characters/<slug>/
+  · 已安装 Skill：$SKILLS_BASE/<slug>/  [✓ 存在 / ✗ 未安装]
+
+你想要：
+
+  [1] 重新生成 —— 删除现有数据，从头开始
+  [2] 追加材料 —— 保留现有数据，添加新材料
+      → 等同于执行 /summon add <slug>
+  [3] 更新设定 —— 修改角色设定或补充另一种模式
+      → 等同于执行 /summon update <slug>
+  [4] 取消 —— 我不想覆盖，换个角色
+
+回复数字即可。
+─────────────────────────────────
+```
+
+**用户选择后的处理**：
+
+- **选 [1] 重新生成**：
+  ```bash
+  rm -rf $SKILL_DIR/characters/<slug>
+  rm -rf $SKILLS_BASE/<slug>
+  rm -rf $SKILLS_BASE/<slug>-perspective
+  ```
+  然后继续正常的创建流程。
+
+- **选 [2] 追加材料**：
+  读取 `$SKILL_DIR/prompts/summon_add.md`（如有）或直接进入材料收集流程，材料写入现有目录。
+
+- **选 [3] 更新设定**：
+  进入 `/summon update <slug>` 流程。
+
+- **选 [4] 取消**：
+  返回开场白，等待用户输入新角色名。
+
+### 相似名称的模糊匹配
+
+如果精确 slug 不存在，但存在相似名称（如用户输入"黛玉"，已有"lin-daiyu-novel"），也应提醒：
+
+```
+没有找到完全匹配的角色，但发现相似的：
+
+  · lin-daiyu-novel（林黛玉，红楼梦原著）
+
+这是你要的角色吗？
+  [Y] 是，使用这个
+  [N] 不是，创建新角色
+```
+
+---
+
 ## 采集完成后立即执行
 
 收到所有必要信息后，**不要再问**，立即：
@@ -125,7 +206,7 @@ Phase 0 执行时读取此文件。目标：**最多 3 轮问答**，拿到所�
    - 角色名（拼音/英文）+ 版本缩写，全小写，连字符分隔
    - 例：`geralt-witcher3`、`hermione-novel`、`cloud-ff7remake`、`wukong-xiyouji`
    
-2. 在脑内确认 slug 不和已有角色重复（扫描 characters/ 目录）
+2. **执行重复检测**（见上方"重复角色检测"节），如有重复则按流程处理
 
 3. 创建目录结构（用 Bash 工具，$SKILL_DIR 在路径约定阶段已解析）：
    ```bash
