@@ -48,6 +48,8 @@
 
 <video src="https://github.com/user-attachments/assets/57ca9c91-c6b2-4903-af71-dea826dbdf8e" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
 
+*演示视频由 [Remotion](https://www.remotion.dev) 制作 · 源码见 [`video/`](video/) · 角色：宇智波鼬 (`/itachi-naruto`)*
+
 </div>
 
 <br><br>
@@ -429,6 +431,7 @@ Visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [We
 
 - [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills) — 万物皆可 skill 的生态土壤
 - [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 证明了自动调研 + 提炼 + 验证的全流程是可行的
+- [Remotion](https://www.remotion.dev) — 用 React 写视频，Demo 动画的制作工具
 
 <br>
 
