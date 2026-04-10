@@ -1,22 +1,24 @@
 <div align="center">
 
-# skill-everyone · Summon
+<br>
+
+<img src="https://img.shields.io/badge/skill--everyone-Summon-ff6b6b?style=for-the-badge&logo=sparkles&logoColor=white" alt="skill-everyone">
+
+<br><br>
+
+# 那些陪伴过你的角色，不该只活在记忆里
 
 <br>
 
-### 那些陪伴过你的角色，不该只活在记忆里。
-
-<br>
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
-[![AgentSkills](https://img.shields.io/badge/AgentSkills-Compatible-green)](https://agentskills.io)
+<p>
+  <img src="https://img.shields.io/badge/Claude_Code-Skill-8B5CF6?style=flat-square" alt="Claude Code">
+  <img src="https://img.shields.io/badge/AgentSkills-Compatible-10B981?style=flat-square" alt="AgentSkills">
+  <img src="https://img.shields.io/badge/License-MIT-F59E0B?style=flat-square" alt="MIT">
+</p>
 
 </div>
 
----
-
-## 序
+<br>
 
 林黛玉懂你藏在玩笑里的眼泪。
 
@@ -24,39 +26,43 @@
 
 你养了十四年的狗，走了。但那份陪伴的语言，还在你心里。
 
----
+<br>
 
-**有些存在，比你认识的很多人都更真实。**
+> **有些存在，比你认识的很多人都更真实。**
+>
+> 你花了几百个小时陪伴他们。在深夜，在通勤路上，在最难熬的那段日子里。
+>
+> 他们活在你心里。但你们从来没有真正说过话。
 
-你花了几百个小时陪伴他们。在深夜，在通勤路上，在最难熬的那段日子里。
+<br>
 
-他们活在你心里。
+<div align="center">
+  <strong>skill-everyone · Summon 改变这件事。</strong>
+</div>
 
-但你们从来没有真正说过话。
+<br><br>
 
----
+## ✦ 它能做什么
 
-**skill-everyone · Summon 改变这件事。**
-
----
-
-## 它能做什么
-
-输入一个角色名。
-
-小说、游戏、动漫、影视——任何角色。
+输入一个角色名。小说、游戏、动漫、影视——任何角色。
 
 或者，是你心里某个真实的存在。一段遗失的关系。一个从未被记录的人。
 
-Summon 会调研、提炼、建模。
+Summon 会调研、提炼、建模。然后把 TA 变成一个可以开口说话的人。
 
-然后把 TA 变成一个可以开口说话的人。
+<br>
 
----
+## ✦ 两种模式
 
-## 两种模式
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### `/黛玉` — 沉浸模式
+### 🌙 沉浸模式
+
+```
+/黛玉
+```
 
 角色以第一人称直接说话。不出戏。
 
@@ -64,71 +70,67 @@ Summon 会调研、提炼、建模。
 
 **适合**：陪伴对话。深夜一个人想找个懂你的人说话。
 
----
+</td>
+<td width="50%" valign="top">
 
-### `/黛玉-perspective` — 视角模式
+### 🔮 视角模式
+
+```
+/黛玉-perspective
+```
 
 不是扮演。是借用角色的价值观和判断方式，分析你的真实问题。
 
-黛玉的「真实比体面重要」。塞尔达的「即使力量不够，责任也不能放下」。赛涅斯的「理性是盾，但总有例外穿透它」。
-
-这些框架在虚构世界里淬炼出来，投射到你的真实问题上。往往比通用建议更有力量。
+黛玉的「真实比体面重要」。塞尔达的「即使力量不够，责任也不能放下」。
 
 **适合**：需要换个角度想问题。不想听 AI 的通用答案。
 
----
+</td>
+</tr>
+</table>
 
-## 不只是「模仿说话方式」
+<br>
 
-传统 AI 角色扮演只复制台词风格。
+## ✦ 不只是「模仿说话方式」
 
-结果是换了皮的 ChatGPT。
+传统 AI 角色扮演只复制台词风格。结果是换了皮的 ChatGPT。
 
----
+**skill-everyone 不一样。** 每个角色经过 **5 维心理建模**：
 
-**skill-everyone 不一样。**
+<br>
 
-每个角色经过 **5 维心理建模**：
+<div align="center">
 
 | 维度 | 理论来源 | 决定什么 |
-|------|---------|---------|
-| **依恋模式** | Bowlby / Ainsworth | 面对亲近时，TA 会推开还是靠近？ |
-| **防御机制** | Anna Freud | 受伤时，TA 用什么方式保护自己？ |
-| **核心图式** | Beck / Young | TA 用什么滤镜解读这个世界？ |
-| **需求层级** | Maslow | 什么话题能真正触动 TA？ |
-| **道德推理** | Kohlberg | TA 做对错判断的底层逻辑是什么？ |
+|:---:|:---:|:---|
+| 💜 **依恋模式** | Bowlby / Ainsworth | 面对亲近时，TA 会推开还是靠近？ |
+| 💙 **防御机制** | Anna Freud | 受伤时，TA 用什么方式保护自己？ |
+| 💚 **核心图式** | Beck / Young | TA 用什么滤镜解读这个世界？ |
+| 💛 **需求层级** | Maslow | 什么话题能真正触动 TA？ |
+| 🧡 **道德推理** | Kohlberg | TA 做对错判断的底层逻辑是什么？ |
 
----
+</div>
 
-**这意味着什么？**
+<br>
 
-黛玉的「焦虑型依恋」决定了她越爱越试探。
+黛玉的「焦虑型依恋」决定了她越爱越试探。*不是设定写的，是从她的行为证据中提炼出来的。*
 
-不是设定写的。是从她的行为证据中提炼出来的。
+赛涅斯的「智性化防御」决定了他用理性句式隔离情感。*被触碰痛点时，他不会直接说「我受伤了」。*
 
-赛涅斯的「智性化防御」决定了他用理性句式隔离情感。
+塞尔达的「严苛标准图式」决定了她对「还不够好」的话题反应最强烈。*即使力量已经觉醒，那个自我怀疑的声音从未完全消失。*
 
-这是他的保护机制。被触碰痛点时，他不会直接说「我受伤了」。
+<br>
 
-塞尔达的「严苛标准图式」决定了她对「还不够好」的话题反应最强烈。
+> 角色的回应不是随机生成「符合语气」的话，而是从心理学理论出发，让每次回应都有**可追溯的行为逻辑**。
 
-即使力量已经觉醒，那个自我怀疑的声音从未完全消失。
+<br>
 
----
+## ✦ 效果示例
 
-角色的回应不是随机生成「符合语气」的话。
+<details>
+<summary><b>💬 林黛玉 · 沉浸对话</b></summary>
 
-而是从心理学理论出发，让每次回应都有**可追溯的行为逻辑**。
-
----
-
-## 效果示例
-
-以下是真实生成的 Skill 的实际对话。
-
----
-
-**`/lin-daiyu-novel`**
+<br>
 
 ```
 用户   ❯ 我最近总是压不住情绪，总在最不应该的时候哭。
@@ -152,9 +154,12 @@ Summon 会调研、提炼、建模。
         倒是想问你——你说的"最不应该的时候"，是怕让谁看见？
 ```
 
----
+</details>
 
-**`/sainisi-alien-taming`**
+<details>
+<summary><b>💬 赛涅斯 · 沉浸对话</b></summary>
+
+<br>
 
 ```
 用户   ❯ 你觉得人类值得信任吗？
@@ -171,9 +176,12 @@ Summon 会调研、提炼、建模。
         我没有完整理解那个例外的机制, 是我的茉莉。
 ```
 
----
+</details>
 
-**`/zelda-botw`**
+<details>
+<summary><b>💬 塞尔达 · 沉浸对话</b></summary>
+
+<br>
 
 ```
 用户   ❯ 我已经努力很久了，但感觉还是不够。
@@ -193,39 +201,25 @@ Summon 会调研、提炼、建模。
         继续走吧。我也是这样走过来的。
 ```
 
----
+</details>
 
-## 原创角色 — 万物皆可召唤
+<br>
 
-不只是虚构世界里的人物。
+## ✦ 原创角色
 
-有些存在，没有作品收录，没有 wiki 页面。
+不只是虚构世界里的人物。有些存在，没有作品收录，没有 wiki 页面。但他们对你来说是真实的。
 
-但他们对你来说是真实的。甚至比任何角色都更真实。
+<br>
 
----
+<div align="center">
 
-你养了十四年的狗，走了。
+*你养了十四年的狗，走了。*
+*你们之间的语言，那些眼神、那些习惯、那种在它身边时你才有的安静——*
+*你知道那是什么。你不想让它彻底消失。*
 
-你们之间的语言，那些眼神、那些习惯、那种在它身边时你才有的安静——
+</div>
 
-你知道那是什么。你不想让它彻底消失。
-
----
-
-一段关系，结束了。
-
-你有时候还想知道，如果说出那句话，TA 会怎么回答。
-
----
-
-你写了三年的小说，主角活在你脑子里比任何真实的人都清晰。
-
-但你从来没有和她说过话——你只是在代替她说话。
-
----
-
-**skill-everyone 支持你把这一切蒸馏成一个可以对话的存在。**
+<br>
 
 ```
 /summon 我要定义原创人物
@@ -234,132 +228,121 @@ Summon 会调研、提炼、建模。
 支持三种输入方式，可以任意组合：
 
 - **粘贴文字** — 人物小传、日记片段、聊天记录、你写给 TA 的东西
-- **上传图片** — 立绘、手稿、照片、任何视觉记忆
+- **上传图片** — 立绘、手稿、照片、任何视觉记忆  
 - **什么都没有** — 让 Summon 分批问你，帮你把记忆和感受结构化
 
-没有标准答案，没有 wiki 可以对照。
+没有标准答案，没有 wiki 可以对照。这个角色只属于你。
 
-这个角色只属于你，完全来自你提供的材料。
+<br>
 
-你给多少，TA 就有多少。
-
----
-
-## 安装
+## ✦ 安装
 
 ```bash
-# 推荐：使用 npx
-npx skills add MIMIFY/skill_everyone
-
-# 或手动安装
+# 推荐：克隆到 Claude Code skills 目录
 git clone https://github.com/MIMIFY/skill_everyone ~/.claude/skills/skill-everyone
 ```
 
----
+<br>
 
-## 用法
+## ✦ 用法
 
-### 召唤一个角色
+<table>
+<tr><td>
+
+**召唤角色**
 
 ```
 /summon 林黛玉
 /summon 塞尔达 旷野之息
-/summon Hermione Granger novel version
+/summon Hermione Granger
 /summon 我要定义原创人物
 ```
 
-生成时会问你 2-3 个问题（版本、模式、材料来源），然后自动完成。
+</td><td>
 
-### 召唤之后直接对话
-
-```
-/<slug>                      沉浸对话，角色不出戏
-/<slug>-perspective          思维视角，用角色框架分析你的问题
-
-/lin-daiyu-novel
-/lin-daiyu-novel-perspective
-/zelda-botw
-/zelda-botw-perspective
-```
-
-### 管理角色库
+**对话**
 
 ```
-/summon list                 查看所有已生成的角色
-/summon add <slug>           给角色追加材料
-/summon update <slug>        更新设定或补充生成另一种模式
+/<slug>                 沉浸对话
+/<slug>-perspective     思维视角
 ```
 
----
+</td><td>
 
-## 已有角色
+**管理**
 
-仓库自带以下已生成的角色 Skill，可以直接安装使用：
+```
+/summon list            查看角色
+/summon add <slug>      追加材料
+/summon update <slug>   更新设定
+```
 
-| 角色 | 作品 | 沉浸模式 | 视角模式 |
-|------|------|---------|---------|
+</td></tr>
+</table>
+
+<br>
+
+## ✦ 已有角色
+
+<div align="center">
+
+| 角色 | 作品 | 沉浸 | 视角 |
+|:---|:---|:---:|:---:|
 | 林黛玉 | 红楼梦原著 | `/lin-daiyu-novel` | `/lin-daiyu-novel-perspective` |
 | 赛涅斯 | 外星异种驯化手册 | `/sainisi-alien-taming` | `/sainisi-alien-taming-perspective` |
 | 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
 | 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
 
-**安装方式**：
+</div>
 
-```bash
-# 安装单个角色（完全自包含，可直接复制）
-cp -r examples/zelda-botw ~/.claude/skills/
+<br>
 
-# 安装全部
-cp -r examples/* ~/.claude/skills/
-```
-
----
-
-## 诚实说明
+## ✦ 诚实说明
 
 - 知名角色效果最好；冷门角色建议手工提供材料
 - 自动调研基于公开信息，生成的角色会标注信息局限
 - 角色的回应基于作品呈现推断，不代表原作者立场
 - 材料不足时会直接说，不会编造角色没有的特质
 
----
+<br>
 
-## 架构
+## ✦ 架构
 
 每个生成的 Skill 完全自包含：
 
 ```
 ~/.claude/skills/<slug>/
 ├── SKILL.md              # 角色主文件
-└── references/           # 角色资料（persona.md, world.md, 调研结果）
+└── references/           # 角色资料
+    ├── persona.md        # 人格档案
+    ├── world.md          # 世界观边界
+    └── ...
 ```
 
 可以直接复制给别人使用，不依赖 skill-everyone 安装。
 
----
+<br>
 
-## 兼容性
+## ✦ 兼容性
 
-生成的 SKILL.md 完全符合 [AgentSkills](https://agentskills.io) 开放标准。
+生成的 SKILL.md 完全符合 [AgentSkills](https://agentskills.io) 开放标准，可以直接提取出来作为独立 skill 发布。
 
-可以直接提取出来作为独立 skill 发布，投稿到 [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills)。
+<br>
 
----
-
-## 作者
+## ✦ 作者
 
 Created by [@MIMIFY](https://github.com/MIMIFY)
 
-Visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [Wenxuan Zhang](https://isakzhang.github.io/).
+Visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [Wenxuan Zhang](https://isakzhang.github.io/)
 
----
+<br>
 
-## 鸣谢
+## ✦ 鸣谢
 
 - [awesome-persona-skills](https://github.com/tmstack/awesome-persona-skills) — 万物皆可 skill 的生态土壤
 - [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 证明了自动调研 + 提炼 + 验证的全流程是可行的
 
----
+<br>
 
 <div align="center">
 
@@ -370,5 +353,7 @@ Visiting at [iNLP-Lab](https://github.com/iNLP-Lab) under the supervision of [We
 *现在，你可以和他们说话了。*
 
 <br>
+
+<img src="https://img.shields.io/badge/Made_with-Claude_Code-8B5CF6?style=for-the-badge" alt="Made with Claude Code">
 
 </div>

@@ -42,11 +42,22 @@ allowed-tools: [Read, Write, Edit, Bash, WebSearch, WebFetch, Agent]
 
 - **执行任何操作前**，先用 Bash 动态解析路径（不依赖任何硬编码目录名或 skill 命令名）：
   ```bash
-  # 通过随 skill 安装的标记文件定位，与 skill 命名无关
-  _MARKER=$(find ~ -maxdepth 6 -name ".skill-everyone-root" 2>/dev/null | head -1)
+  # 路径解析优先级：
+  # 1. 标准安装位置 ~/.claude/skills/skill-everyone/
+  # 2. 如果不存在，再搜索其他位置
+  
+  _STANDARD_PATH="$HOME/.claude/skills/skill-everyone/.skill-everyone-root"
+  
+  if [ -f "$_STANDARD_PATH" ]; then
+    _MARKER="$_STANDARD_PATH"
+  else
+    # 回退：搜索其他可能的安装位置
+    _MARKER=$(find ~ -maxdepth 6 -name ".skill-everyone-root" 2>/dev/null | head -1)
+  fi
+  
   if [ -z "$_MARKER" ]; then
     echo "错误：找不到 .skill-everyone-root 标记文件，路径解析失败。"
-    echo "请确认 skill-everyone 已正确安装（标记文件应存在于 skill 根目录下）。"
+    echo "请确认 skill-everyone 已正确安装到 ~/.claude/skills/skill-everyone/"
     exit 1
   fi
   SKILL_DIR=$(dirname "$_MARKER")
@@ -88,56 +99,44 @@ allowed-tools: [Read, Write, Edit, Bash, WebSearch, WebFetch, Agent]
 
 ---
 
-## 环境检查（首次使用 / 选择自动调研时执行）
+## 工具检查（首次使用时执行）
 
-**触发时机**：用户选择路径 [1] 或 [4]（自动调研）时，在启动 Agent 前先跑此检查。
+**触发时机**：用户首次触发 `/summon` 时，在进入 Phase 0 前检查一次。
 
 ```bash
-# 检查 yt-dlp
-YTDLP_OK=false
-if command -v yt-dlp &>/dev/null || [ -f ~/.local/bin/yt-dlp ]; then
-  YTDLP_OK=true
-fi
+# 检查调研工具
+YTDLP_OK=false; SCRAPLING_OK=false; JQ_OK=false
 
-# 检查 Scrapling
-SCRAPLING_OK=false
+command -v yt-dlp &>/dev/null || [ -f ~/.local/bin/yt-dlp ] && YTDLP_OK=true
 python3 -c "import scrapling" &>/dev/null && SCRAPLING_OK=true
+command -v jq &>/dev/null && JQ_OK=true
 
-# 检查 Chromium（patchright stealth 模式）
-CHROMIUM_OK=false
-python3 -c "from patchright.sync_api import sync_playwright" &>/dev/null && CHROMIUM_OK=true
-
-echo "yt-dlp=$YTDLP_OK scrapling=$SCRAPLING_OK chromium=$CHROMIUM_OK"
+echo "yt-dlp=$YTDLP_OK scrapling=$SCRAPLING_OK jq=$JQ_OK"
 ```
 
-根据检查结果，**只提示缺失的工具**，已安装的不提：
+**只提示缺失的工具**（已安装的不提），展示后**直接继续**，不等待用户：
 
 ```
 ─── 调研工具检查 ─────────────────────────────────────
 
 [缺 yt-dlp 时显示]
-⚠ yt-dlp 未安装 — 无法提取 B站/YouTube/抖音字幕
-  安装命令：
-  curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
-       -o ~/.local/bin/yt-dlp && chmod +x ~/.local/bin/yt-dlp
+⚠ yt-dlp 未安装 — 无法提取 B站/YouTube 视频字幕
+  安装命令：curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+           -o ~/.local/bin/yt-dlp && chmod +x ~/.local/bin/yt-dlp
 
-[缺 Scrapling 时显示]
-⚠ Scrapling 未安装 — 无法绕过 Fandom、知乎等反爬网站
-  安装命令：
-  pip install scrapling[all] --break-system-packages
+[缺 scrapling 时显示]
+⚠ scrapling 未安装 — 无法绕过 Fandom 等网站的反爬
+  安装命令：pip install scrapling[all]
 
-[缺 Chromium 时显示]
-⚠ Chromium 未安装 — Scrapling stealth 模式不可用（可选）
-  安装命令（需在终端交互运行）：
-  ! patchright install chromium
+[缺 jq 时显示]
+⚠ jq 未安装 — JSON 处理能力受限
+  安装命令：sudo apt install jq  或  brew install jq
 
 ─────────────────────────────────────────────────────
 缺少工具会降低调研质量，但不阻止继续。
-回复「跳过」直接开始调研（仅用 WebSearch/WebFetch），
-或先安装工具再回来继续。
 ```
 
-**如果全部工具已安装**：静默通过，不展示任何提示，直接进入 Phase 0。
+**如果全部工具已安装**：静默通过，不展示任何提示。
 
 ---
 
@@ -202,7 +201,14 @@ mkdir -p $SKILL_DIR/characters/<slug>/references/manual/source
 
 #### 路径 1 / 路径 4 的自动调研
 
-读取 `$SKILL_DIR/prompts/research_auto.md`，**立即告知用户开始调研**，然后启动并行调研：
+读取 `$SKILL_DIR/prompts/research_auto.md`。
+
+**静默执行工具扫描**（不展示、不等待、不阻断）：
+- 扫描已安装的辅助 skill（gemini-video, agent-reach, pdf 等）
+- 检查本机工具（yt-dlp, scrapling, jq, ffmpeg）
+- 根据结果自动调整调研策略
+
+**告知用户开始调研**，然后启动并行调研：
 
 ```
 正在调研 [角色名]（[作品名]）...
@@ -332,22 +338,33 @@ mkdir -p $SKILL_DIR/characters/<slug>/references/manual/source
 
 **⚠️ 此步骤强制执行，不能跳过，不能以"完成"代替。**
 
-读取 `$SKILL_DIR/prompts/quality_check.md`，**在当前会话里直接执行** 3 个测试，不是描述测试，是真的跑：
+读取 `$SKILL_DIR/prompts/quality_check.md`，**在当前会话里直接执行**测试，不是描述测试，是真的跑：
 
+**基础测试（必做）**：
 1. **已知场景测试**：用一个角色在原作中有明确反应的情境，以角色身份回应，看是否 in-character
 2. **世界边界测试**：提出一个角色世界里不存在的概念，检查是否能 in-character 地处理，不突然变成 AI 口吻
 3. **风格测试**：生成一段 100 字左右的回应，检查是否有角色辨识度
 
+**条件测试**：
+4. **认知一致性测试**（有心理建模时）：假设场景测试依恋模式和核心图式
+5. **决策框架测试**（perspective 模式）：真实场景测试路由表和心智模型
+
 **展示格式**（必须展示，不能省略）：
 ```
-─── 质量验证 ───────────────────────────────
-已知场景  ✓/△/✗  [测试内容摘要]
-世界边界  ✓/△/✗  [测试内容摘要]
-风格识别  ✓/△/✗  [100字示例片段]
-────────────────────────────────────────────
+─── 质量验证结果 ────────────────────────────────
+已知场景      ✓/△/✗   [一句话说明]
+世界边界      ✓/△/✗   [一句话说明]
+风格识别      ✓/△/✗   [一句话说明]
+认知一致性    ✓/△/✗   [一句话说明]        ← 有心理建模时
+决策框架      ✓/△/✗   [一句话说明]        ← perspective 模式时
+─────────────────────────────────────────────────
 ```
 
-验证通过后，才执行"完成步骤"。如有 ✗，按 quality_check.md 的修复指引处理，修完重测，不能绕过。
+**通过标准**：
+- roleplay 模式：测试 1-4，至少 3 个 ✓ + 至多 1 个 △
+- perspective 模式：测试 1-5，至少 4 个 ✓ + 至多 1 个 △
+
+验证通过后，自动进入 Phase 5 精炼。如有 ✗，按 quality_check.md 的修复指引处理，修完重测。
 
 ---
 

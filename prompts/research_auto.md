@@ -4,48 +4,98 @@ Phase 1 路径 1 / 路径 4 时读取此文件。
 
 ---
 
-## Phase 0：工具与能力扫描（调研前必须执行）
+## Phase 0：工具与能力扫描（静默执行，不阻断）
 
-**在启动任何 Agent 之前**，先做以下检查，结果影响后续调研策略。
+**在启动 Agent 之前**，静默执行以下检查。**不展示给用户，不等待确认，直接根据结果调整策略。**
 
 ### 1. 扫描已安装的能力型 skill
 
 ```bash
-# 扫描 $SKILLS_BASE/ 下是否有研究辅助 skill
-ls $SKILLS_BASE/ 2>/dev/null | grep -E 'video|reader|research|article|gemini|pdf'
+# 静默扫描 $SKILLS_BASE/ 下的研究辅助 skill
+AVAILABLE_SKILLS=$(ls $SKILLS_BASE/ 2>/dev/null | grep -E 'video|reader|research|article|gemini|pdf|agent-reach|nuwa' || true)
+echo "AVAILABLE_SKILLS: $AVAILABLE_SKILLS"
 ```
 
-如果发现以下 skill，调研时优先使用（不要默认从 WebSearch 从零开始）：
+发现以下 skill 时，调研中优先使用：
 
 | Skill 名称模式 | 用途 | 何时调用 |
 |-------------|------|---------|
-| `*video*` / `*gemini*` | 视频内容理解 | 角色有官方 PV、访谈视频 |
-| `*reader*` / `*article*` | 网页/文章提取 | WebFetch 遇到反爬 |
-| `*pdf*` | PDF 阅读 | 用户提供了 PDF 素材 |
-| `*research*` | 通用调研辅助 | 复杂来源需要多步骤 |
-
-**使用方式**：在对应 Agent 的 prompt 里说明「优先使用 [skill名] 完成此步骤」。
+| `gemini-video` / `*video*` | 视频内容理解、字幕提取 | 角色有官方 PV、访谈视频 |
+| `web-article-reader` / `*reader*` | 精确提取网页全文 | WebFetch 遇到反爬或截断 |
+| `agent-reach` | 多平台信息获取（17个平台） | 需要从 X/Reddit/YouTube 等获取 |
+| `pdf` / `*pdf*` | PDF 阅读 | 用户提供了 PDF 素材 |
+| `huashu-research` / `*research*` | 结构化深度调研 | 复杂来源需要多步骤 |
 
 ### 2. 检查本机工具
 
 ```bash
-# 检查 yt-dlp 可用性
-YTDLP=$(command -v yt-dlp 2>/dev/null || echo ~/.local/bin/yt-dlp)
-[ -f "$YTDLP" ] && echo "yt-dlp: 可用 ($YTDLP)" || echo "yt-dlp: 不可用"
+# 静默检查，结果存变量
+YTDLP_OK=false; SCRAPLING_OK=false; JQ_OK=false; FFMPEG_OK=false
 
-# 检查 scrapling 可用性
-python3 -c "import scrapling; print('scrapling: 可用')" 2>/dev/null || echo "scrapling: 不可用"
+# yt-dlp（视频字幕提取）
+command -v yt-dlp &>/dev/null || [ -f ~/.local/bin/yt-dlp ] && YTDLP_OK=true
+
+# scrapling（反爬绕过）
+python3 -c "import scrapling" &>/dev/null && SCRAPLING_OK=true
+
+# jq（JSON 处理）
+command -v jq &>/dev/null && JQ_OK=true
+
+# ffmpeg（音视频处理，部分字幕提取需要）
+command -v ffmpeg &>/dev/null && FFMPEG_OK=true
+
+echo "yt-dlp=$YTDLP_OK scrapling=$SCRAPLING_OK jq=$JQ_OK ffmpeg=$FFMPEG_OK"
 ```
 
-### 3. 根据扫描结果决定调研策略
+### 3. 根据扫描结果决定策略（内部逻辑，不展示）
 
 | 情况 | 策略 |
 |------|------|
-| yt-dlp 可用 + 角色有视频素材 | Agent B 优先走 yt-dlp 提取字幕，再补 WebSearch |
-| 有 reader/article skill | Agent A/C 遇到反爬时调用，不要直接放弃 |
-| 什么工具都没有 | 纯 WebSearch + WebFetch，走标准流程 |
+| yt-dlp 可用 | Agent B 优先走 yt-dlp 提取字幕 |
+| 有 reader/article skill | 遇到反爬时调用，不直接放弃 |
+| 有 agent-reach | 用它获取 X/Reddit 等平台内容 |
+| 什么都没有 | 纯 WebSearch + WebFetch，降级策略 |
 
-**扫描完成后继续执行 Phase 1。如果有可用工具，在每个 Agent 的 prompt 里明确告知。**
+**扫描完成后直接进入 Phase 1，不等待用户。**
+
+---
+
+## 调研完成后：能力提升建议（仅在信息不足时展示）
+
+**触发条件**：三路 Agent 合计 <15 条有效信息，且缺少关键工具/skill。
+
+在调研质量摘要**之后**，追加一段建议（不阻断流程）：
+
+```
+─── 💡 提升调研能力（可选）─────────────────────
+
+你的调研环境可以增强。以下工具/skill 能显著提升效果：
+
+[根据缺失项动态生成，最多显示 3 条]
+
+⚡ yt-dlp — 提取 B站/YouTube 视频字幕，获取角色台词
+  curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+       -o ~/.local/bin/yt-dlp && chmod +x ~/.local/bin/yt-dlp
+
+⚡ agent-reach skill — 从 X/Reddit/YouTube 等 17 个平台获取信息
+  git clone https://github.com/anthropics/agent-reach ~/.claude/skills/agent-reach
+
+⚡ pdf skill — 直接阅读 PDF 书籍/设定集
+  git clone https://github.com/anthropics/pdf-skill ~/.claude/skills/pdf
+
+⚡ scrapling — 绕过 Fandom 等网站的反爬
+  pip install scrapling[all]
+
+这些不影响当前生成，但下次调研会更快更全。
+─────────────────────────────────────────────────
+```
+
+**显示规则**：
+- 缺 yt-dlp 且角色来自游戏/动漫 → 显示 yt-dlp
+- 缺 agent-reach 且调研结果偏少 → 显示 agent-reach
+- 用户提供了 PDF 但没有 pdf skill → 显示 pdf skill
+- WebFetch 失败 >2 次 → 显示 scrapling
+- 已有足够工具或信息充足 → **不显示任何建议**
 
 ---
 
