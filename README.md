@@ -46,16 +46,7 @@
 
 <div align="center">
 
-<!-- 上传视频到 GitHub Release 后，将下方 src 替换为实际 URL -->
-<!-- 视频文件：video/out/skill-everyone-demo.mp4 (4.4 MB, 59s) -->
-<!--
-<video src="YOUR_GITHUB_RELEASE_VIDEO_URL" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
--->
-
-> 视频演示正在上传中。请前往 [Releases](../../releases) 页面查看，或 clone 后本地运行：
-> ```bash
-> cd video && npx remotion studio
-> ```
+<video src="https://github.com/MIMIFY/skill_everyone/releases/download/v1.0/skill-everyone-demo.mp4" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
 
 </div>
 

@@ -11,6 +11,8 @@
 characters/*/references/auto/source/
 characters/*/references/manual/source/
 characters/*/references/manual/original/source/
+examples/*/references/auto/source/
+examples/*/references/manual/source/
 
 # Python
 __pycache__/
