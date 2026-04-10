@@ -7,11 +7,10 @@
 # 如果你 fork 了这个仓库并在本地生成了自己的角色，
 # 建议在你的 fork 里把 characters/ 加入 .gitignore（或只 track 你想保留的）。
 
-# 原始抓取备份（可重新生成，不上传）
-characters/*/references/auto/source/
+# 完整原始资料（过大 / 版权风险，不上传）
+# auto/source/ 体积小可以提交，manual/source/ 防止误提交大文件（如完整小说原文）
 characters/*/references/manual/source/
 characters/*/references/manual/original/source/
-examples/*/references/auto/source/
 examples/*/references/manual/source/
 
 # Python

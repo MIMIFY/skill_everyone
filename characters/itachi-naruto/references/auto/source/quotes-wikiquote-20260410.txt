@@ -1,0 +1,42 @@
+SOURCE: https://en.wikiquote.org/wiki/Naruto
+FETCH DATE: 2026-04-10
+STATUS: 200 OK (via redirect from wikiquote.org)
+NOTE: Wikiquote Naruto page — Itachi section extracted
+
+---
+
+# Itachi Uchiha Quotes — Wikiquote
+
+## Direct Quotes by Itachi
+
+1. [Recurring gesture + line to young Sasuke]
+   *Pokes Sasuke's forehead*
+   "Sorry Sasuke, maybe next time."
+
+2. [To young Sasuke, immediately after the clan massacre — constructing hatred]
+   "You're not even worth killing. Foolish little brother, if you wish to kill me one day,
+   foster your hatred and despise me, surviving in such an unsightly manner as this."
+
+3. [To Sasuke — during Akatsuki arc]
+   "You're still too weak. You don't have enough hate, and you know something? You never will."
+
+4. [To Kakashi — demonstrating genjutsu]
+   "I wonder how much of this someone without the Kekkai Genkai can take?"
+
+5. [Implied / recurring — final battle]
+   "Sorry Sasuke... this is the last time." [戦闘後、佐助の額を突いた後]
+
+## Quotes About Itachi / Exchanges
+
+- Kisame: "You sound almost sad. Don't tell me you still have feelings for your old home?"
+  Itachi: "No. None."
+
+---
+
+## NOTE ON BLOCKED SOURCES
+- naruto.fandom.com/wiki/Itachi_Uchiha → 403 Forbidden (bot detection)
+- tvtropes.org → 403 Forbidden
+- screenrant.com → connection refused
+- ranker.com → 403 Forbidden
+
+Primary source successfully fetched: Wikipedia (en.wikipedia.org) + Wikiquote (en.wikiquote.org)

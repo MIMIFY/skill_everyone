@@ -1,0 +1,9 @@
+# 原始来源：zeldawiki.wiki/wiki/Princess_Zelda
+# 抓取时间：2026-04-07
+# 状态：WebFetch 403，通过 WebSearch 摘要获取
+
+## 关键信息（来自搜索摘要）
+
+- BotW 是系列首部为塞尔达提供英语配音的主系列作品，她使用英国口音
+- 主角色页面、角色列表、画廊页均可在 zeldawiki.wiki 查阅
+- 链接：https://zeldawiki.wiki/wiki/Princess_Zelda
