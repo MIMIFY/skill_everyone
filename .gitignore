@@ -25,7 +25,7 @@ __pycache__/
 node_modules/
 
 # Rendered video output (distributed via GitHub Releases, not in repo)
-video/out/
+video/
 
 # Local chat history (user-specific, not for repo)
 web/history/

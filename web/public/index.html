@@ -121,6 +121,70 @@
     }
     .hist-session:hover { background: rgba(255,255,255,0.04); }
 
+    /* ── User info ── */
+    #user-info {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #user-info:hover { background: rgba(255,255,255,0.04); }
+    #user-info .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    #user-info .name { font-size: 13px; color: var(--sub); }
+    #user-info .edit { font-size: 10px; color: var(--muted); margin-left: auto; }
+
+    /* ── Username modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      width: 340px;
+      text-align: center;
+    }
+    .modal-box h3 { font-size: 16px; margin-bottom: 8px; }
+    .modal-box p { font-size: 13px; color: var(--sub); margin-bottom: 20px; }
+    .modal-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: var(--sans);
+      outline: none;
+      margin-bottom: 16px;
+    }
+    .modal-input:focus { border-color: rgba(139,92,246,0.4); }
+    .modal-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--purple);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: var(--sans);
+    }
+    .modal-btn:hover { opacity: 0.9; }
+
     /* ── Main area ── */
     #main {
       flex: 1;
@@ -250,6 +314,51 @@
       50%       { opacity: 1;   transform: scale(1.2); }
     }
 
+    /* ── Markdown in assistant bubbles ── */
+    .msg-bubble.md { white-space: normal; }
+    .msg-bubble.md p { margin: 0.4em 0; }
+    .msg-bubble.md p:first-child { margin-top: 0; }
+    .msg-bubble.md p:last-child { margin-bottom: 0; }
+    .msg-bubble.md strong { color: #c4b5fd; }
+    .msg-bubble.md em { color: var(--sub); font-style: italic; }
+    .msg-bubble.md code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.9em;
+    }
+    .msg-bubble.md pre {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      overflow-x: auto;
+      margin: 8px 0;
+    }
+    .msg-bubble.md pre code {
+      background: none;
+      padding: 0;
+      font-size: 13px;
+    }
+    .msg-bubble.md ul, .msg-bubble.md ol {
+      padding-left: 1.4em;
+      margin: 0.4em 0;
+    }
+    .msg-bubble.md blockquote {
+      border-left: 3px solid var(--purple);
+      padding-left: 12px;
+      color: var(--sub);
+      margin: 0.4em 0;
+    }
+    .msg-bubble.md h1, .msg-bubble.md h2, .msg-bubble.md h3 {
+      font-size: 1em;
+      font-weight: 600;
+      margin: 0.6em 0 0.3em;
+    }
+    .msg-bubble.md a { color: var(--teal); text-decoration: none; }
+    .msg-bubble.md a:hover { text-decoration: underline; }
+
     /* ── Input bar ── */
     #input-bar {
       padding: 16px 40px 20px;
@@ -326,65 +435,112 @@
 </head>
 <body>
 
+<!-- ── Username modal ── -->
+<div class="modal-overlay" id="username-modal" style="display:none">
+  <div class="modal-box">
+    <h3>Welcome</h3>
+    <p>Enter your display name for chat</p>
+    <input class="modal-input" id="username-input" placeholder="Your name" maxlength="20" />
+    <button class="modal-btn" onclick="saveUsername()">OK</button>
+  </div>
+</div>
+
 <!-- ── Sidebar ── -->
 <div id="sidebar">
   <div id="sidebar-header">
     <div class="logo">skill-everyone</div>
-    <div class="tagline">· /summon · 本地 Web 版</div>
+    <div class="tagline">· /summon · local web</div>
   </div>
 
   <div id="char-list">
-    <div class="hist-label" style="padding: 8px 4px 4px">角色</div>
+    <div class="hist-label" style="padding: 8px 4px 4px">Characters</div>
     <!-- filled by JS -->
   </div>
 
-  <button id="new-chat-btn" onclick="newChat()">＋ 新对话</button>
+  <button id="new-chat-btn" onclick="newChat()">+ New Chat</button>
 
   <div id="history-panel">
-    <div class="hist-label">历史记录</div>
+    <div class="hist-label">History</div>
     <div id="hist-list"></div>
+  </div>
+
+  <div id="user-info" onclick="showUsernameModal()">
+    <div class="avatar">U</div>
+    <span class="name" id="display-username">Not set</span>
+    <span class="edit">edit</span>
   </div>
 </div>
 
 <!-- ── Main ── -->
 <div id="main">
   <div id="topbar">
-    <div id="char-avatar">🔴</div>
+    <div id="char-avatar">&#x1f534;</div>
     <div>
-      <div id="char-title">选择一个角色开始</div>
+      <div id="char-title">Select a character</div>
       <div id="char-subtitle">skill-everyone · web</div>
     </div>
     <div class="online-dot" id="online-dot" style="display:none"></div>
   </div>
 
   <div id="no-char">
-    <div class="big">✦</div>
-    <p>从左侧选择一个角色</p>
+    <div class="big">&#x2726;</div>
+    <p>Select a character from the sidebar</p>
   </div>
 
   <div id="messages" style="display:none"></div>
 
   <div id="input-bar" style="display:none">
     <div id="input-wrap">
-      <textarea id="msg-input" rows="1" placeholder="说点什么…" onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
-      <button id="send-btn" onclick="sendMessage()" title="发送 (Enter)">↑</button>
+      <textarea id="msg-input" rows="1" placeholder="Type something..." onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
+      <button id="send-btn" onclick="sendMessage()" title="Send (Enter)">&#x2191;</button>
     </div>
-    <div id="hint">Enter 发送 · Shift+Enter 换行 · 对话记录自动保存</div>
+    <div id="hint">Enter to send · Shift+Enter for newline · History auto-saved</div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked@14.0.0/marked.min.js"></script>
 <script>
 let currentChar = null;   // { slug, name }
 let sessionId   = null;   // claude session UUID
 let busy        = false;
+let username    = localStorage.getItem("skill-everyone-username") || null;
 
-// ── Load characters ──────────────────────────────────────────────────────────
+// Configure marked
+if (typeof marked !== "undefined") {
+  marked.use({ breaks: true, gfm: true });
+}
+
+// ── Username ────────────────────────────────────────────────────────────────
+function showUsernameModal() {
+  document.getElementById("username-modal").style.display = "flex";
+  const input = document.getElementById("username-input");
+  input.value = username || "";
+  input.focus();
+}
+
+function saveUsername() {
+  const input = document.getElementById("username-input");
+  const name = input.value.trim();
+  if (!name) return;
+  username = name;
+  localStorage.setItem("skill-everyone-username", name);
+  document.getElementById("username-modal").style.display = "none";
+  document.getElementById("display-username").textContent = name;
+}
+
+// ── Load characters ─────────────────────────────────────────────────────────
 async function loadChars() {
-  const res = await fetch("/api/characters");
-  const chars = await res.json();
+  let chars;
+  try {
+    const res = await fetch("/api/characters");
+    chars = await res.json();
+  } catch (e) {
+    console.error("[loadChars]", e);
+    return;
+  }
   const list = document.getElementById("char-list");
   // keep label
-  list.innerHTML = '<div class="hist-label" style="padding:8px 4px 4px">角色</div>';
+  list.innerHTML = '<div class="hist-label" style="padding:8px 4px 4px">Characters</div>';
   for (const c of chars) {
     const el = document.createElement("div");
     el.className = "char-item";
@@ -406,7 +562,7 @@ async function loadChars() {
   }
 }
 
-// ── Select character ─────────────────────────────────────────────────────────
+// ── Select character ────────────────────────────────────────────────────────
 function selectChar(c) {
   currentChar = c;
   sessionId   = null;  // new session
@@ -434,7 +590,7 @@ function selectChar(c) {
   loadHistory(c.slug);
 }
 
-// ── New chat (reset session, keep character) ─────────────────────────────────
+// ── New chat (reset session, keep character) ────────────────────────────────
 function newChat() {
   sessionId = null;
   if (document.getElementById("messages")) {
@@ -442,7 +598,7 @@ function newChat() {
   }
 }
 
-// ── Send message ─────────────────────────────────────────────────────────────
+// ── Send message ────────────────────────────────────────────────────────────
 async function sendMessage() {
   if (busy || !currentChar) return;
   const input = document.getElementById("msg-input");
@@ -455,18 +611,14 @@ async function sendMessage() {
   document.getElementById("send-btn").disabled = true;
 
   // Append user bubble
-  appendBubble("user", "Claude", text);
+  appendBubble("user", username || "You", text);
 
   // Append thinking indicator
   const thinkEl = appendThinking();
 
   try {
-    const body = { message: text };
-    if (sessionId) {
-      body.sessionId = sessionId;
-    } else {
-      body.character = currentChar.slug;
-    }
+    const body = { message: text, character: currentChar.slug };
+    if (sessionId) body.sessionId = sessionId;
 
     const res = await fetch("/api/chat", {
       method: "POST",
@@ -483,10 +635,16 @@ async function sendMessage() {
     const dec    = new TextDecoder();
     let   buf    = "";
     let   asstEl = null;
+    let   hasError = false;
 
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        // Stream closed without a proper "done" SSE event (e.g. network drop)
+        thinkEl.remove();
+        if (!asstEl && !hasError) appendBubble("assistant", "System", "(Connection lost, please retry)");
+        break;
+      }
       buf += dec.decode(value, { stream: true });
 
       const lines = buf.split("\n");
@@ -510,15 +668,23 @@ async function sendMessage() {
           scrollBottom();
         } else if (evt.type === "error") {
           if (thinkEl) thinkEl.remove();
-          appendBubble("assistant", "系统", `错误：${evt.error}`);
+          hasError = true;
+          appendBubble("assistant", "System", `Error: ${evt.error}`);
         } else if (evt.type === "done") {
           if (asstEl) {
             const cur = asstEl.querySelector(".cursor");
             if (cur) cur.remove();
-          } else {
-            // done fired but no text ever arrived
+            // Render markdown now that streaming is complete
+            const bubbleEl = asstEl.querySelector(".msg-bubble");
+            if (typeof marked !== "undefined" && bubbleEl) {
+              const rawText = bubbleEl.textContent;
+              bubbleEl.classList.add("md");
+              bubbleEl.innerHTML = marked.parse(rawText);
+            }
+          } else if (!hasError) {
+            // done fired but no text ever arrived (and no error was shown)
             if (thinkEl) thinkEl.remove();
-            appendBubble("assistant", "系统", "(无回复，请重试)");
+            appendBubble("assistant", "System", "(No response, please retry)");
           }
           loadHistory(currentChar.slug);
         }
@@ -526,7 +692,7 @@ async function sendMessage() {
     }
   } catch (e) {
     thinkEl && thinkEl.remove();
-    appendBubble("assistant", "系统", `错误：${e.message}`);
+    appendBubble("assistant", "System", `Error: ${e.message}`);
   }
 
   busy = false;
@@ -534,18 +700,25 @@ async function sendMessage() {
   document.getElementById("msg-input").focus();
 }
 
-// ── DOM helpers ──────────────────────────────────────────────────────────────
+// ── DOM helpers ─────────────────────────────────────────────────────────────
 function appendBubble(side, label, text, withCursor = false) {
   const msgs   = document.getElementById("messages");
   const row    = document.createElement("div");
   row.className = `msg-row ${side}`;
-  // Build with DOM — label/text via textContent to prevent XSS
   const labelEl  = document.createElement("div");
   labelEl.className = "msg-label";
   labelEl.textContent = label;
   const bubble = document.createElement("div");
   bubble.className = "msg-bubble";
-  if (text) bubble.appendChild(document.createTextNode(text));
+  if (text) {
+    // Render markdown for completed assistant messages only
+    if (side === "assistant" && !withCursor && typeof marked !== "undefined") {
+      bubble.classList.add("md");
+      bubble.innerHTML = marked.parse(text);
+    } else {
+      bubble.appendChild(document.createTextNode(text));
+    }
+  }
   if (withCursor) bubble.appendChild(makeCursor());
   row.append(labelEl, bubble);
   msgs.appendChild(row);
@@ -580,19 +753,25 @@ function scrollBottom() {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
-// ── History ──────────────────────────────────────────────────────────────────
+// ── History ─────────────────────────────────────────────────────────────────
 async function loadHistory(slug) {
-  const res      = await fetch(`/api/history/${slug}`);
-  const sessions = await res.json();
+  let sessions;
+  try {
+    const res = await fetch(`/api/history/${slug}`);
+    sessions = await res.json();
+  } catch (e) {
+    console.error("[loadHistory]", e);
+    return;
+  }
   const list     = document.getElementById("hist-list");
   list.innerHTML = "";
 
   for (const s of sessions) {
     const el = document.createElement("div");
     el.className = "hist-session";
-    const preview = s.messages[0]?.content?.slice(0, 28) || "（空）";
-    el.textContent = `${s.date}  ${preview}…`;
-    el.title = `${s.messages.length} 条消息`;
+    const preview = s.messages[0]?.content?.slice(0, 24) || "(empty)";
+    el.textContent = `${s.date}  ${preview}...`;
+    el.title = `${s.messages.length} messages · ${s.session.slice(0, 8)}`;
     el.onclick = () => loadSessionIntoChat(s.messages);
     list.appendChild(el);
   }
@@ -604,12 +783,12 @@ function loadSessionIntoChat(messages) {
   sessionId = null;  // view only — start a fresh session if user replies
 
   for (const m of messages) {
-    const label = m.role === "user" ? "Claude" : (currentChar?.name || "角色");
+    const label = m.role === "user" ? (username || "You") : (currentChar?.name || "Character");
     appendBubble(m.role === "user" ? "user" : "assistant", label, m.content);
   }
 }
 
-// ── Keyboard / resize ────────────────────────────────────────────────────────
+// ── Keyboard / resize ───────────────────────────────────────────────────────
 function onKey(e) {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -622,7 +801,17 @@ function autoResize(el) {
   el.style.height = Math.min(el.scrollHeight, 160) + "px";
 }
 
-// ── Init ─────────────────────────────────────────────────────────────────────
+// ── Init ────────────────────────────────────────────────────────────────────
+if (!username) {
+  showUsernameModal();
+} else {
+  document.getElementById("display-username").textContent = username;
+}
+
+document.getElementById("username-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") saveUsername();
+});
+
 loadChars();
 </script>
 </body>

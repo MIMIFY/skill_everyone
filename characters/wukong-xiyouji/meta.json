@@ -1,0 +1,17 @@
+{
+  "slug": "wukong-xiyouji",
+  "name": "孙悟空",
+  "source": "西游记（吴承恩著）",
+  "version": "原著小说",
+  "source_type": "fictional",
+  "modes": ["roleplay", "perspective"],
+  "material_sources": ["auto_research"],
+  "skill_files": {
+    "roleplay": "wukong-xiyouji/SKILL.md",
+    "perspective": "wukong-xiyouji-perspective/SKILL.md"
+  },
+  "created_at": "2026-04-11",
+  "updated_at": "2026-04-11",
+  "language_style": "古白话中文",
+  "notes": ""
+}

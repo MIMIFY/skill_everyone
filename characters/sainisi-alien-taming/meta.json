@@ -5,13 +5,13 @@
   "version": "网络小说原著",
   "source_type": "fictional",
   "modes": ["roleplay", "perspective"],
-  "material_sources": ["auto"],
+  "material_sources": ["auto", "manual_image"],
   "skill_files": {
     "roleplay": "examples/sainisi-alien-taming/SKILL.md",
     "perspective": "examples/sainisi-alien-taming-perspective/SKILL.md"
   },
   "created_at": "2026-04-06",
-  "updated_at": "2026-04-06",
+  "updated_at": "2026-04-11",
   "language_style": "中文",
   "notes": ""
 }

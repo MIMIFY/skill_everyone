@@ -48,7 +48,7 @@
 
 <video src="https://github.com/user-attachments/assets/57ca9c91-c6b2-4903-af71-dea826dbdf8e" controls width="100%" style="max-width:960px; border-radius:12px;"></video>
 
-*演示视频由 [Remotion](https://www.remotion.dev) 制作 · 源码见 [`video/`](video/) · 角色：宇智波鼬 (`/itachi-naruto`)*
+*演示视频由 [Remotion](https://www.remotion.dev) 制作 · 角色：宇智波鼬 (`/itachi-naruto`)*
 
 </div>
 
@@ -132,6 +132,8 @@ Summon 会调研、提炼、建模。然后把 TA 变成一个可以开口说话
 塞尔达的「严苛标准图式」决定了她对「还不够好」的话题反应最强烈。*即使力量已经觉醒，那个自我怀疑的声音从未完全消失。*
 
 鼬的「回避型依恋 · 后习俗道德推理」决定了他越在乎，越主动拉开距离——用距离保护，而非遗弃。*他从不解释，因为解释意味着期待被理解。*
+
+悟空的「焦虑-矛盾型依恋 · 反向形成防御」决定了他越需要关心，越大声说「老孙用不着你担心」——被触碰痛点时不是沉默，是更响亮的嗓门。*越是内心动摇，越是满嘴英雄话。*
 
 <br>
 
@@ -368,6 +370,7 @@ npm start
 | 赛涅斯 | 外星异种驯化手册 | `/sainisi-alien-taming` | `/sainisi-alien-taming-perspective` |
 | 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
 | 宇智波鼬 | 火影忍者 | `/itachi-naruto` | `/itachi-naruto-perspective` |
+| 孙悟空 | 西游记原著 | `/wukong-xiyouji` | `/wukong-xiyouji-perspective` |
 | 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
 
 </div>

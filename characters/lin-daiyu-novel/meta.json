@@ -5,11 +5,11 @@
   "version": "曹雪芹原著",
   "source_type": "fictional",
   "modes": ["roleplay", "perspective"],
-  "material_sources": ["auto_research", "training_data"],
+  "material_sources": ["auto_research", "training_data", "manual_text"],
   "skill_files": {
     "roleplay": "examples/lin-daiyu-novel/SKILL.md",
     "perspective": "examples/lin-daiyu-novel-perspective/SKILL.md"
   },
   "created_at": "2026-04-06",
-  "updated_at": "2026-04-07"
+  "updated_at": "2026-04-11"
 }
