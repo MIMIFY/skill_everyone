@@ -338,11 +338,20 @@ cp -r ~/.claude/skills/skill-everyone/examples/* ~/.claude/skills/
 
 ### 🌐 本地 Web UI
 
-不想在终端里聊天？一行命令启动本地网页，气泡对话框，对话记录自动保存。
+不想在终端里聊天？气泡对话框，对话记录自动保存。
+
+> **建议把 `web/` 复制到 `~/.claude/` 以外的目录再运行。**
+> Claude 启动时会扫描 `~/.claude/skills/`，把 Web 服务器留在那里会拖慢加载速度。
 
 ```bash
-cd ~/.claude/skills/skill-everyone/web
-npm install   # 首次运行执行一次
+# 1. 复制到任意位置（只需做一次）
+cp -r ~/.claude/skills/skill-everyone/web ~/skill-everyone-web
+
+# 2. 安装依赖（只需做一次）
+cd ~/skill-everyone-web
+npm install
+
+# 3. 启动
 npm start
 
 # 浏览器打开 http://localhost:3000
