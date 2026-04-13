@@ -378,7 +378,7 @@ npm start
 | 林黛玉 | 红楼梦原著 | `/lin-daiyu-novel` | `/lin-daiyu-novel-perspective` |
 | 赛涅斯 | 外星异种驯化手册 | `/sainisi-alien-taming` | `/sainisi-alien-taming-perspective` |
 | 塞尔达 | 旷野之息 / 王国之泪 | `/zelda-botw` | `/zelda-botw-perspective` |
-| 宇智波鼬 | 火影忍者 | `/itachi-naruto` | `/itachi-naruto-perspective` |
+| 宇智波鼬 | 火影忍者 | `/itachi-naruto` | — |
 | 孙悟空 | 西游记原著 | `/wukong-xiyouji` | `/wukong-xiyouji-perspective` |
 | 韦克斯 | 深渊侦探事务所（原创） | `/test-original-vex` | — |
 
